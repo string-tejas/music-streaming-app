@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div>
       Home
-      <OAuthButton icon={<FcGoogle />}>Hello</OAuthButton>
+      <OAuthButton icon={<FcGoogle />}>Sign in with Google</OAuthButton>
     </div>
   );
 };
