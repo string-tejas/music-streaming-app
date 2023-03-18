@@ -20,13 +20,15 @@ const AuthProvider = ({ children }) => {
       if (userCred) {
         console.log("AuthContext", userCred);
         setAuth(true);
-        window.localStorage.setItem("auth", "true");
       } else {
         setAuth(false);
-        window.localStorage.setItem("auth", "false");
       }
     });
-  }, []);
+  }, [firebaseAuth]);
+
+  useEffect(() => {
+    window.localStorage.setItem("auth", auth ? "true" : "false");
+  }, [auth]);
 
   return (
     <authContext.Provider
