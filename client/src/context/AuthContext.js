@@ -1,6 +1,6 @@
 import { getAuth } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { app } from "../config/firebase.config";
 
 const authContext = createContext();
 
@@ -9,8 +9,7 @@ const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-  const firebaseAuth = getAuth();
-  const navigate = useNavigate();
+  const firebaseAuth = getAuth(app);
 
   const [auth, setAuth] = useState(
     false || window.localStorage.getItem("auth") === "true"
@@ -19,15 +18,12 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((userCred) => {
       if (userCred) {
-        userCred.getIdToken().then((token) => {
-          console.log("AuthContext", token);
-        });
+        console.log("AuthContext", userCred);
         setAuth(true);
         window.localStorage.setItem("auth", "true");
       } else {
         setAuth(false);
         window.localStorage.setItem("auth", "false");
-        navigate("/login");
       }
     });
   }, []);
@@ -37,6 +33,7 @@ const AuthProvider = ({ children }) => {
       value={{
         auth,
         setAuth,
+        firebaseAuth,
       }}
     >
       {children}

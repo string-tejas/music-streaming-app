@@ -1,12 +1,10 @@
-import { getAuth } from "firebase/auth";
 import React from "react";
 import OAuthButton from "../components/OAuthButton";
 import { FiLogOut } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
-  const firebaseAuth = getAuth();
-  const { setAuth } = useAuth();
+  const { setAuth, firebaseAuth } = useAuth();
 
   const handleLogoutClick = async () => {
     await firebaseAuth.signOut().then(() => {
