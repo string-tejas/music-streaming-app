@@ -87,7 +87,7 @@ const Login = () => {
           <AuthTitle style={{ color: "#3cb29c" }}>Login</AuthTitle>
 
           <span className="text-gray-600 text-[15px]  mb-3">
-            Use your email for registration:
+            Enter your credentails:
           </span>
 
           <AuthInput
@@ -95,6 +95,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder={"Email"}
+            required
           />
           <AuthInput
             icon={<BiLock style={{ color: "#9ca3af", fontSize: "20px" }} />}
@@ -102,6 +103,7 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder={"Password"}
+            required
           />
           <AuthButton
             dark
