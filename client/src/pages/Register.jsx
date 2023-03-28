@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FiMail } from "react-icons/fi";
-import { BiLock } from "react-icons/bi";
+import { BiLock, BiUser } from "react-icons/bi";
 import OAuthButton from "../components/OAuthButton";
-import {
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { FullContainer } from "../components/Scaffold";
@@ -26,6 +22,7 @@ const Login = () => {
   const provider = new GoogleAuthProvider();
   const { setAuth, firebaseAuth } = useAuth();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -34,7 +31,9 @@ const Login = () => {
     createUserWithEmailAndPassword(firebaseAuth, email, password)
       .then((userCred) => {
         console.log("Register", userCred);
-        setAuth(true);
+        updateProfile(userCred.user, {
+          displayName: name,
+        });
       })
       .catch((error) => {
         console.log(error.code);
@@ -56,12 +55,8 @@ const Login = () => {
   return (
     <FullContainer style={{ background: `url(${images.authBg})` }}>
       <CardContainer>
-        <BrandInfo
-          className={"flex flex-col items-center justify-center bg-[#3cb29c]"}
-        >
-          <AuthTitle style={{ textShadow: "2px 0 0 black" }}>
-            Create Account
-          </AuthTitle>
+        <BrandInfo className={"flex flex-col items-center justify-center bg-[#3cb29c]"}>
+          <AuthTitle style={{ textShadow: "2px 0 0 black" }}>Create Account</AuthTitle>
           <AuthSubtitle
             style={{
               fontWeight: "500",
@@ -70,8 +65,7 @@ const Login = () => {
               margin: "13px",
             }}
           >
-            Unleash the Beat with Just One Click! <br /> Login to Your Music
-            World!
+            Unleash the Beat with Just One Click! <br /> Login to Your Music World!
           </AuthSubtitle>
           <AuthSubtitle>Already Have an account ?</AuthSubtitle>
           <Link to="/login">
@@ -86,10 +80,15 @@ const Login = () => {
         >
           <AuthTitle style={{ color: "#3cb29c" }}>Register</AuthTitle>
 
-          <span className="text-gray-600 text-[15px]  mt-2">
-            Use your email for registration:
-          </span>
+          <span className="text-gray-600 text-[15px]  mt-2">Use your email for registration:</span>
 
+          <AuthInput
+            icon={<BiUser style={{ color: "#9ca3af", fontSize: "18px" }} />}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={"Name"}
+            required
+          />
           <AuthInput
             icon={<FiMail style={{ color: "#9ca3af", fontSize: "18px" }} />}
             value={email}
@@ -105,12 +104,7 @@ const Login = () => {
             placeholder={"Password"}
             required
           />
-          <AuthButton
-            dark
-            className="mt-4"
-            type="submit"
-            onClick={registerUser}
-          >
+          <AuthButton dark className="mt-4" type="submit" onClick={registerUser}>
             Register
           </AuthButton>
 
