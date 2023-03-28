@@ -5,6 +5,7 @@ import NoAuth from "./components/Routes/NoAuth";
 import { AuthProvider } from "./context/AuthContext";
 import { About, Home, Login, Register } from "./pages";
 import { AnimatePresence } from "framer-motion";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -28,6 +29,16 @@ function App() {
               </NoAuth>
             }
           />
+
+          <Route
+            path="/dashboard/*"
+            element={
+              <NeedAuth>
+                <Dashboard />
+              </NeedAuth>
+            }
+          />
+
           <Route
             path="/*"
             element={

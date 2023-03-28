@@ -6,6 +6,7 @@ import { useStateValue } from "../context/StateProvider";
 import { useAuth } from "../context/AuthContext";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { BsSpeedometer } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -74,11 +75,20 @@ const Header = () => {
                   <CgProfile className="text-2xl" /> Profile
                 </p>
               </NavLink>
-              <NavLink to={"/favorites"}>
+              <NavLink to={"/dashboard/home"}>
                 <p className="text-base text-textColor  hover:bg-gray-200 px-6 py-2 hover:font-semibold duration-150 transition-all ease-in-out flex items-center gap-4">
-                  <MdOutlineFavoriteBorder className="text-2xl" /> Favorites
+                  <BsSpeedometer className="text-2xl" /> Dashboard
                 </p>
               </NavLink>
+              {user?.role === "admin" && (
+                <NavLink to={"/favorites"}>
+                  <p className="text-base text-textColor  hover:bg-gray-200 px-6 py-2 hover:font-semibold duration-150 transition-all ease-in-out flex items-center gap-4">
+                    <MdOutlineFavoriteBorder className="text-2xl" /> Favorites
+                  </p>
+                </NavLink>
+              )}
+
+              <hr />
               <p
                 onClick={handleLogoutClick}
                 className="text-base text-textColor  hover:bg-gray-200 px-6 py-2 hover:font-semibold duration-150 transition-all ease-in-out flex items-center gap-4"
