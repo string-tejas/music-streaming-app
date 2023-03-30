@@ -1,6 +1,9 @@
 import { getAuth } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
+import { validateUser } from "../api";
 import { app } from "../config/firebase.config";
+import { actionType } from "./reducer";
+import { useStateValue } from "./StateProvider";
 
 const authContext = createContext();
 
@@ -11,20 +14,33 @@ const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const firebaseAuth = getAuth(app);
 
-  const [auth, setAuth] = useState(
-    false || window.localStorage.getItem("auth") === "true"
-  );
+  const [auth, setAuth] = useState(false || window.localStorage.getItem("auth") === "true");
+  // eslint-disable-next-line no-unused-vars
+  const [_, dispatch] = useStateValue();
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((userCred) => {
       if (userCred) {
-        console.log("AuthContext", userCred);
+        userCred.getIdToken().then((token) => {
+          validateUser(token)
+            .then((data) => {
+              dispatch({
+                type: actionType.SET_USER,
+                user: data.user,
+              });
+            })
+            .catch((e) => console.log(e));
+        });
         setAuth(true);
       } else {
+        dispatch({
+          type: actionType.SET_USER,
+          user: null,
+        });
         setAuth(false);
       }
     });
-  }, [firebaseAuth]);
+  }, [firebaseAuth, dispatch]);
 
   useEffect(() => {
     window.localStorage.setItem("auth", auth ? "true" : "false");
