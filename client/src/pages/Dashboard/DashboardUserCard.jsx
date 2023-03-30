@@ -5,6 +5,7 @@ import { changingUserRole, getAllUsers, removeUser } from "../../api";
 import { actionType } from "../../context/reducer";
 import { useStateValue } from "../../context/StateProvider";
 import { MdDelete } from "react-icons/md";
+import { GrUpgrade } from "react-icons/gr";
 import images from "../../assets/images";
 
 const DashboardUserCard = ({ data, index }) => {
@@ -114,13 +115,14 @@ const DashboardUserCard = ({ data, index }) => {
       <div className=" w-275 min-w-[160px] text-center flex items-center justify-center gap-6 relative">
         <p className="text-base text-textColor"> {data.role}</p>
         {data._id !== user?._id && (
-          <motion.p
+          <motion.span
             whileTap={{ scale: 0.75 }}
-            className="text-[10px]  font-semibold text-textColor px-1 bg-purple-200 rounded-sm hover:shadow-md"
+            className="text-[10px] flex items-center justify-between h-6 rounded-2xl font-semibold text-textColor bg-green-200 px-2 gap-1 hover:shadow-md"
             onClick={() => setIsUpdateRole(true)}
           >
-            {data.role === "admin" ? "Member" : "Admin"}
-          </motion.p>
+            {data.role === "admin" ? "Demote" : "Promote"}
+            <GrUpgrade style={{transform: data.role === "admin" ? 'rotate(180deg)' : 'rotate(0deg)'}} />
+          </motion.span>
         )}
         {isUpdateRole && (
           <motion.div
