@@ -16,8 +16,6 @@ const DashboardUserCard = ({ data, index }) => {
   const [{ user }, dispatch] = useStateValue();
   const createdAt = moment(new Date(data.createdAt)).format("MMMM Do YYYY");
 
-  console.log(data._id);
-
   const UpdateUserRole = (userId, role) => {
     setIsLoading(true);
     setIsUpdateRole(false);
@@ -78,7 +76,9 @@ const DashboardUserCard = ({ data, index }) => {
               key={data._id + "del"}
               className="absolute z-10 top-16 left-4 rounded-md p-4 flex items-start flex-col gap-4 bg-white shadow-xl"
             >
-              <p className="text-textColor text-sm font-semibold">Are you sure you want to delete this user ?</p>
+              <p className="text-textColor text-sm font-semibold">
+                Are you sure you want to delete this user ?
+              </p>
               <div className="flex items-center gap-4">
                 <motion.button
                   whileTap={{ scale: 0.75 }}
@@ -121,7 +121,12 @@ const DashboardUserCard = ({ data, index }) => {
             onClick={() => setIsUpdateRole(true)}
           >
             {data.role === "admin" ? "Demote" : "Promote"}
-            <GrUpgrade style={{transform: data.role === "admin" ? 'rotate(180deg)' : 'rotate(0deg)'}} />
+            <GrUpgrade
+              style={{
+                transform:
+                  data.role === "admin" ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
           </motion.span>
         )}
         {isUpdateRole && (
@@ -132,13 +137,19 @@ const DashboardUserCard = ({ data, index }) => {
             className="absolute z-10 top-6 right-4 rounded-md p-4 flex items-start flex-col gap-4 bg-white shadow-xl"
           >
             <p className="text-textColor text-sm font-semibold">
-              Are you sure do u want to mark the user as <span>{data.role === "admin" ? "Member" : "Admin"}</span> ?
+              Are you sure do u want to mark the user as{" "}
+              <span>{data.role === "admin" ? "Member" : "Admin"}</span> ?
             </p>
             <div className="flex items-center gap-4">
               <motion.button
                 whileTap={{ scale: 0.75 }}
                 className="outline-none border-none text-sm px-4 py-1 rounded-md bg-blue-200 text-black hover:shadow-md"
-                onClick={() => UpdateUserRole(data._id, data.role === "admin" ? "member" : "admin")}
+                onClick={() =>
+                  UpdateUserRole(
+                    data._id,
+                    data.role === "admin" ? "member" : "admin"
+                  )
+                }
               >
                 Yes
               </motion.button>
@@ -154,7 +165,9 @@ const DashboardUserCard = ({ data, index }) => {
         )}
       </div>
 
-      {isLoading && <div className="absolute inset-0 bg-card animate-pulse"></div>}
+      {isLoading && (
+        <div className="absolute inset-0 bg-card animate-pulse"></div>
+      )}
     </motion.div>
   );
 };
