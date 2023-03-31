@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 
 import { motion } from "framer-motion";
@@ -9,7 +9,8 @@ const FilterButtons = ({ filterData, flag }) => {
   const [filterName, setFilterName] = useState(null);
   const [filterMenu, setFilterMenu] = useState(false);
 
-  const [{ artistFilter, albumFilter, filterTerm }, dispatch] = useStateValue();
+  // eslint-disable-next-line no-empty-pattern
+  const [{}, dispatch] = useStateValue();
 
   const updateFilterButton = (name) => {
     setFilterName(name);

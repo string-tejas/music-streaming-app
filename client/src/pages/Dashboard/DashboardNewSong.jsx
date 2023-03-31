@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  getStorage,
   ref,
   getDownloadURL,
   uploadBytesResumable,
@@ -13,44 +12,39 @@ import { MdDelete } from "react-icons/md";
 
 import { storage } from "../../config/firebase.config";
 import { useStateValue } from "../../context/StateProvider";
-//import FilterButtons from "./FilterButtons";
 import {
   getAllAlbums,
   getAllArtist,
   getAllSongs,
-  saveNewAlbum,
-  saveNewArtist,
   saveNewSong,
 } from "../../api";
 import { actionType } from "../../context/reducer";
 import { filterByLanguage, filters } from "../../utils/supportFunctions";
 
 import FilterButtons from "./FilterButtons";
-//import AlertSuccess from "./AlertSuccess";
-//import AlertError from "./AlertError";
+
+import AlertError from "../../components/AlertError";
+import AlertSuccess from "../../components/AlertSuccess";
 
 const DashboardNewSong = () => {
-  const [isImageLoading, setIsImageLoading] = useState(false);
-  const [songImageUrl, setSongImageUrl] = useState(null);
   const [setAlert, setSetAlert] = useState(null);
   const [alertMsg, setAlertMsg] = useState("");
-  const [songImageCover, setSongImageCover] = useState();
+
+  const [songImageUrl, setSongImageUrl] = useState();
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
-  const [audioImageCover, setAudioImageCover] = useState();
+  const [audioImageUrl, setAudioImageUrl] = useState();
   const [audioUploadingProgress, setaudioUploadingProgress] = useState();
+
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const [isAudioLoading, setIsAudioLoading] = useState(false);
 
   const [songName, setSongName] = useState("");
-  const [audioAsset, setAudioAsset] = useState(null);
-  const [duration, setDuration] = useState(null);
-  const audioRef = useRef();
 
   const [
     {
       artists,
       allAlbums,
-      allSongs,
       albumFilter,
       artistFilter,
       filterTerm,
@@ -59,36 +53,8 @@ const DashboardNewSong = () => {
     dispath,
   ] = useStateValue();
 
-  const calculateTime = (sec) => {
-    const minutes = Math.floor(sec / 60);
-    const returnMin = minutes < 10 ? `0${minutes}` : `${minutes}`;
-    const seconds = Math.floor(sec % 60);
-    const returnSec = seconds < 10 ? `0${seconds}` : `${seconds}`;
-    return `${returnMin} : ${returnSec}`;
-  };
-
-  const deleteImageObject = (songURL, action) => {
-    if (action === "image") {
-      setIsImageLoading(true);
-      setSongImageUrl(null);
-    } else {
-      setIsAudioLoading(true);
-      setAudioAsset(null);
-    }
-    const deleteRef = ref(storage, songURL);
-    deleteObject(deleteRef).then(() => {
-      setSetAlert("success");
-      setAlertMsg("File removed successfully");
-      setTimeout(() => {
-        setSetAlert(null);
-      }, 4000);
-      setIsImageLoading(false);
-      setIsAudioLoading(false);
-    });
-  };
-
   const saveSong = () => {
-    if (!songImageCover || !audioImageCover || !songName) {
+    if (!songImageUrl || !audioImageUrl || !songName) {
       setSetAlert("error");
       setAlertMsg("Required fields are missing");
       setTimeout(() => {
@@ -100,8 +66,8 @@ const DashboardNewSong = () => {
 
       const data = {
         name: songName,
-        imageURL: songImageCover,
-        songURL: audioImageCover,
+        imageURL: songImageUrl,
+        songURL: audioImageUrl,
         album: albumFilter,
         artist: artistFilter,
         language: languageFilter,
@@ -121,13 +87,12 @@ const DashboardNewSong = () => {
         setIsImageLoading(false);
         setIsAudioLoading(false);
         setSongName("");
-        setSongImageCover(null);
-        setAudioImageCover(null);
+        setSongImageUrl(null);
+        setAudioImageUrl(null);
         dispath({ type: actionType.SET_ARTIST_FILTER, artistFilter: null });
         dispath({ type: actionType.SET_LANGUAGE_FILTER, languageFilter: null });
         dispath({ type: actionType.SET_ALBUM_FILTER, albumFilter: null });
         dispath({ type: actionType.SET_FILTER_TERM, filterTerm: null });
-        setDuration(null);
       });
     }
   };
@@ -160,9 +125,9 @@ const DashboardNewSong = () => {
 
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
-      setSongImageCover(null);
+      setSongImageUrl(null);
       setIsImageLoading(false);
-      setAudioImageCover(null);
+      setAudioImageUrl(null);
       setIsAudioLoading(false);
     });
   };
@@ -189,9 +154,9 @@ const DashboardNewSong = () => {
           {isImageLoading && <FileLoader progress={imageUploadProgress} />}
           {!isImageLoading && (
             <>
-              {!songImageCover ? (
+              {!songImageUrl ? (
                 <FileUploader
-                  updateState={setSongImageCover}
+                  updateState={setSongImageUrl}
                   setProgress={setImageUploadProgress}
                   isLoading={setIsImageLoading}
                   isImage={true}
@@ -199,15 +164,15 @@ const DashboardNewSong = () => {
               ) : (
                 <div className="relative w-full h-full overflow-hidden rounded-md">
                   <img
-                    src={songImageCover}
-                    alt="uploaded image"
+                    src={songImageUrl}
+                    alt="Song Cover"
                     className="w-full h-full object-cover"
                   />
                   <button
                     type="button"
                     className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md  duration-500 transition-all ease-in-out"
                     onClick={() => {
-                      deleteFileObject(songImageCover, true);
+                      deleteFileObject(songImageUrl, true);
                     }}
                   >
                     <MdDelete className="text-white" />
@@ -225,21 +190,21 @@ const DashboardNewSong = () => {
           {isAudioLoading && <FileLoader progress={audioUploadingProgress} />}
           {!isAudioLoading && (
             <>
-              {!audioImageCover ? (
+              {!audioImageUrl ? (
                 <FileUploader
-                  updateState={setAudioImageCover}
+                  updateState={setAudioImageUrl}
                   setProgress={setaudioUploadingProgress}
                   isLoading={setIsAudioLoading}
                   isImage={false}
                 />
               ) : (
                 <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-md">
-                  <audio src={audioImageCover} controls />
+                  <audio src={audioImageUrl} controls />
                   <button
                     type="button"
                     className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md  duration-500 transition-all ease-in-out"
                     onClick={() => {
-                      deleteFileObject(audioImageCover, false);
+                      deleteFileObject(audioImageUrl, false);
                     }}
                   >
                     <MdDelete className="text-white" />
@@ -263,6 +228,15 @@ const DashboardNewSong = () => {
           </motion.button>
         )}
       </div>
+      {setAlert && (
+        <>
+          {setAlert === "success" ? (
+            <AlertSuccess msg={alertMsg} />
+          ) : (
+            <AlertError msg={alertMsg} />
+          )}
+        </>
+      )}
     </div>
   );
 };
