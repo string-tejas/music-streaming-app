@@ -7,7 +7,7 @@ import { actionType } from "../../context/reducer";
 import { IoAdd } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { getAllSongs } from "../../api";
-import SongCard from "../SongCard";
+import SongCard from "../ItemCard";
 // import AlertSuccess from "./AlertSuccess";
 // import AlertError from "./AlertError";
 
@@ -77,7 +77,7 @@ export const SongContainer = ({ data }) => {
     <div className="w-full flex flex-wrap gap-3 items-center justify-even">
       {data &&
         data.map((song, i) => {
-          return <SongCard key={song._id} data={song} index={i} />;
+          return <SongCard key={song._id} data={song} index={i} type="song" />;
         })}
     </div>
   );

@@ -17,13 +17,17 @@ export const DashboardCard = ({ icon, name, count }) => {
 };
 
 const DashboardHome = () => {
-  const [{ allUsers, allSongs, allArtists, allAlbums }, dispatch] = useStateValue();
+  const [{ allUsers, allSongs, allArtists, allAlbums }, dispatch] =
+    useStateValue();
 
   useEffect(() => {
     if (!allUsers) {
-      getAllUsers().then((data) => dispatch({ type: actionType.SET_ALL_USERS, allUsers: data.data }));
+      getAllUsers().then((data) =>
+        dispatch({ type: actionType.SET_ALL_USERS, allUsers: data.data })
+      );
     }
-  }, [allUsers, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-full p-6 flex items-center justify-evenly flex-wrap">

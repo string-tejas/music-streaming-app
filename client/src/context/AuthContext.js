@@ -14,7 +14,9 @@ const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const firebaseAuth = getAuth(app);
 
-  const [auth, setAuth] = useState(false || window.localStorage.getItem("auth") === "true");
+  const [auth, setAuth] = useState(
+    false || window.localStorage.getItem("auth") === "true"
+  );
   // eslint-disable-next-line no-unused-vars
   const [_, dispatch] = useStateValue();
 
@@ -40,7 +42,8 @@ const AuthProvider = ({ children }) => {
         setAuth(false);
       }
     });
-  }, [firebaseAuth, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     window.localStorage.setItem("auth", auth ? "true" : "false");

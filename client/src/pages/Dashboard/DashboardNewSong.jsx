@@ -77,8 +77,8 @@ const DashboardNewSong = () => {
       };
 
       saveNewSong(data).then((res) => {
-        console.log("Song save result", res);
         getAllSongs().then((songs) => {
+          console.log(songs);
           dispath({ type: actionType.SET_ALL_SONGS, allSongs: songs.song });
         });
         setSetAlert("success");
@@ -317,7 +317,10 @@ export const AddNewArtist = () => {
       };
       saveNewArtist(data).then((res) => {
         getAllArtist().then((artistData) => {
-          dispatch({ type: actionType.SET_ARTISTS, artists: artistData.data });
+          dispatch({
+            type: actionType.SET_ARTISTS,
+            artists: artistData.artist,
+          });
         });
         setAlertMsg("Artist Added successfully");
         setAlert("success");
@@ -478,7 +481,7 @@ export const AddNewAlbum = () => {
         getAllAlbums().then((albumData) => {
           dispatch({
             type: actionType.SET_ALL_ALBUMS,
-            albumData: albumData.data,
+            allAlbums: albumData.albums,
           });
         });
         setAlertMsg("Album Added successfully");
