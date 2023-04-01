@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { IoArrowRedo, IoArrowUndo, IoMusicalNote } from "react-icons/io5";
+import { IoMusicalNote } from "react-icons/io5";
 import { motion } from "framer-motion";
 
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import { MdPlaylistPlay } from "react-icons/md";
 import { FiMinimize2 } from "react-icons/fi";
 import { getAllSongs } from "../api";
 import { RiPlayListFill } from "react-icons/ri";
@@ -75,6 +74,7 @@ const MusicPlayer = () => {
         songIndex: 0,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [songIndex]);
 
   return (
@@ -171,6 +171,7 @@ export const PlayListCard = () => {
         });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setCurrentPlaySong = (songindex) => {
