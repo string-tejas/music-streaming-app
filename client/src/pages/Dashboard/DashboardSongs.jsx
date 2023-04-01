@@ -73,11 +73,37 @@ const DashboardSongs = () => {
 };
 
 export const SongContainer = ({ data }) => {
+  const [{ isSongPlaying, songIndex }, dispatch] = useStateValue();
+
+  const addSongToContext = (song, index) => {
+    // console.log("added", song);
+    if (!isSongPlaying) {
+      dispatch({
+        type: actionType.SET_IS_SONG_PLAYING,
+        isSongPlaying: true,
+      });
+    }
+
+    if (songIndex !== index) {
+      dispatch({
+        type: actionType.SET_SONG_INDEX,
+        songIndex: index,
+      });
+    }
+  };
+
   return (
     <div className="w-full flex flex-wrap gap-3 items-center justify-even">
       {data &&
         data.map((song, i) => {
-          return <SongCard key={song._id} data={song} index={i} type="song" />;
+          return (
+            <SongCard
+              key={song._id}
+              data={song}
+              type="song"
+              onClick={() => addSongToContext(song, i)}
+            />
+          );
         })}
     </div>
   );

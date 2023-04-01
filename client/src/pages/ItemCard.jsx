@@ -16,7 +16,7 @@ import { actionType } from "../context/reducer";
 import { storage } from "../config/firebase.config";
 import { ref, deleteObject } from "firebase/storage";
 
-const SongCard = ({ data, type, index }) => {
+const SongCard = ({ data, type, onClick = () => {} }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [alert, setAlert] = useState(null);
   // eslint-disable-next-line no-empty-pattern
@@ -87,7 +87,10 @@ const SongCard = ({ data, type, index }) => {
   };
 
   return (
-    <motion.div className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col items-center">
+    <motion.div
+      className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col items-center"
+      onClick={onClick}
+    >
       <div className="w-40 h-40 min-w-[160px] min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden">
         <motion.img
           src={data.imageURL}

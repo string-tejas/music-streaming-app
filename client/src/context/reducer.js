@@ -9,8 +9,8 @@ export const actionType = {
   SET_ALL_SONGS: "SET_ALL_SONGS",
   SET_ALL_ALBUMS: "SET_ALL_ALBUMS",
   SET_ALBUM_FILTER: "SET_ALBUM_FILTER",
-  SET_SONG: "SET_SONG",
-  SET_SONG_PLAYING: "SET_SONG_PLAYING",
+  SET_SONG_INDEX: "SET_SONG_INDEX",
+  SET_IS_SONG_PLAYING: "SET_IS_SONG_PLAYING",
   SET_MINI_PLAYER: "SET_MINI_PLAYER",
 };
 
@@ -78,13 +78,13 @@ const reducer = (state, action) => {
         albumFilter: action.albumFilter,
       };
 
-    case actionType.SET_SONG:
+    case actionType.SET_SONG_INDEX:
       return {
         ...state,
-        song: action.song,
+        songIndex: action.songIndex,
       };
 
-    case actionType.SET_SONG_PLAYING:
+    case actionType.SET_IS_SONG_PLAYING:
       return {
         ...state,
         isSongPlaying: action.isSongPlaying,
