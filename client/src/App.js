@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import { useStateValue } from "./context/StateProvider";
 import { motion } from "framer-motion";
 import MusicPlayer from "./components/MusicPlayer";
+import Trending from "./pages/Trending";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -31,6 +32,14 @@ function App() {
                     element={
                         <NoAuth>
                             <Register />
+                        </NoAuth>
+                    }
+                />
+                 <Route
+                    path="/trending"
+                    element={
+                        <NoAuth>
+                            <Trending />
                         </NoAuth>
                     }
                 />

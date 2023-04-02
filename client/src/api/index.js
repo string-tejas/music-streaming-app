@@ -49,6 +49,27 @@ export const changingUserRole = async (userId, role) => {
   }
 };
 
+
+export const updateSongCount = async (songId) => {
+  try {
+    const res = api.put(`/songs/updateCount/${songId}`);
+    return res;
+  } catch (error) {
+    console.log ("error in count : ", error)
+    return null;
+  }
+}
+
+export const getTrendingSongs = async () => {
+  try {
+    const res = api.get(`/songs/trending`);
+    return res;
+  } catch (error) {
+    console.log ("error in trending : ", error)
+    return null;
+  }
+}
+
 export const getAllSongs = async () => {
   try {
     const res = await axios.get(`${baseURL}/songs/getAllSongs`);
@@ -57,6 +78,7 @@ export const getAllSongs = async () => {
     return null;
   }
 };
+
 
 export const getAllAlbums = async () => {
   try {

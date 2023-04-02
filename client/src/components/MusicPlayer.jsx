@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { FiMinimize2 } from "react-icons/fi";
-import { getAllSongs } from "../api";
+import { getAllSongs, updateSongCount } from "../api";
 import { RiPlayListFill } from "react-icons/ri";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
@@ -77,6 +77,13 @@ const MusicPlayer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [songIndex]);
 
+  const updateCount = (id) => {
+      console.log (" id : ",id)
+       updateSongCount(id)
+       .then( data => { console.log (" data of success : ",data)})
+       .catch( err => console.log(" error in count : ",err));
+  }
+
   return (
     <div className="w-full full flex items-center gap-3 overflow-hidden">
       <div
@@ -114,7 +121,7 @@ const MusicPlayer = () => {
         <div className="flex-1">
           <AudioPlayer
             src={allSongs[songIndex]?.songURL}
-            onPlay={() => console.log("is playing")}
+            onPlay={() => updateCount(allSongs[songIndex]?._id)}
             autoPlay={true}
             showSkipControls={true}
             onEnded={() => nextTrack()}

@@ -11,6 +11,7 @@ router.post("/save", async ( req, res ) => {
       artist : req.body.artist,
       language: req.body.language,
       category : req.body.category,
+      count : 0,
   })
 
   try {
@@ -45,6 +46,40 @@ router.get("/getAllSongs", async ( req, res )=> {
   }
 })
 
+router.put("/updateCount/:id", async( req, res) => {
+  const filters = { _id : req.params.id};
+  const options = {
+    upsert  :true,
+    new  :true,
+  }
+
+  try{
+    const updatedSong = await song.findOneAndUpdate(
+      filters,
+      {$inc : {'count' : 1}},
+      options
+    )
+
+    return res.status(200).send({ success : true, song : updatedSong})
+  }
+  catch(error) {
+    return res.status(400).send({success : false, message : error})
+  }
+  
+
+})
+
+router.get("/trending", async (req, res) => {
+  const data = await song.find().sort({"count":-1});
+  if(data) {
+    return res.status(200).send({ success : true, song : data });
+  }
+  else {
+    return res.status(400).send({ success : false, message : "No Song found"})
+  }
+
+})
+
 router.put("/update/:id", async ( req, res )=> {
   const filters = { _id : req.params.id };
   const options = {
@@ -61,7 +96,7 @@ router.put("/update/:id", async ( req, res )=> {
         album : req.body.album,
         artist : req.body.artist,
         language: req.body.language,
-        category : req.body.category,
+        category : req.body.category, 
       },
       options
     )
