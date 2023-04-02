@@ -3,3 +3,4 @@ export { default as Home } from "./Home";
 export { default as Register } from "./Register";
 export { default as About } from "./About";
 export { default as ItemCard } from "./ItemCard";
+export { default as Landing } from "./Landing";
