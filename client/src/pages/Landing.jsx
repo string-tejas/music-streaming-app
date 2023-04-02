@@ -15,6 +15,94 @@ const Landing = () => {
     return (
         <>
             <Heading />
+
+            <div className="px-6 py-8 md:px-24 md:py-16">
+                <motion.section
+                    initial={{
+                        x: -120,
+                        opacity: 0,
+                    }}
+                    exit={{
+                        x: -120,
+                        opacity: 0,
+                    }}
+                    whileInView={{
+                        x: 0,
+                        opacity: 1,
+                    }}
+                    transition={{ duration: 0.7, delay: 0.1 }}
+                >
+                    <h3 className="text-xl md:text-6xl pb-1">
+                        Listen to your favorite <span className="font-bold text-blue-600">music</span>
+                    </h3>
+                    <h3 className="text-xl md:text-6xl font-semibold">Anytime, Anywhere.</h3>
+                    <hr className="mt-4" />
+                </motion.section>
+                <section className="w-full flex flex-col gap-4 md:gap-12 md:flex-row mt-4 md:mt-12">
+                    <motion.img
+                        src={images.listenMusic}
+                        className="md:w-8/12 w-full object-cover"
+                        alt="listening music"
+                        initial={{
+                            y: 200,
+                            opacity: 0,
+                        }}
+                        exit={{
+                            y: 200,
+                            opacity: 0,
+                        }}
+                        whileInView={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    />
+                    <motion.div
+                        initial={{
+                            y: 200,
+                            opacity: 0,
+                        }}
+                        exit={{
+                            y: 200,
+                            opacity: 0,
+                        }}
+                        whileInView={{
+                            y: 0,
+                            opacity: 1,
+                        }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <h1 className="pt-1 md:pt-3 md:mt-0 text-xl font-semibold md:text-5xl">
+                            Never Stop Listening.
+                        </h1>
+                        <div className="mt-4 text-base md:text-xl" style={{ fontFamily: "Roboto" }}>
+                            Music is a powerful source of inspiration and joy that can be enjoyed anytime and anywhere.
+                            Never stop listening to music, as it has the ability to enhance your mood and positively
+                            impact your life.
+                        </div>
+                        <h1 className="pt-8 md:mt-0 text-xl font-semibold md:text-5xl">Benefits of Music</h1>
+                        <ul
+                            className="mt-4 text-base md:text-xl"
+                            style={{ fontFamily: "Roboto", listStyleType: "circle", transform: "translateX(20px)" }}
+                        >
+                            <li>Mood enhancement</li>
+                            <li>Stress reduction </li>
+                            <li>Improved focus</li>
+                            <li>Concentration</li>
+                            <li>Enhanced creativity</li>
+                        </ul>
+                    </motion.div>
+                </section>
+            </div>
+            <section className="w-full relative">
+                <motion.img className="w-full h-[600px] object-cover" src={images.dj} alt="dj" />
+                <div
+                    className="absolute bottom-12 left-2 md:left-7 text-white text-3xl md:text-7xl"
+                    style={{ textShadow: "0 0 2px white" }}
+                >
+                    Catch the latest music here !
+                </div>
+            </section>
         </>
     );
 };
