@@ -218,7 +218,7 @@ export const PlayListCard = () => {
                     >
                         <IoMusicalNote className="text-textColor group-hover:text-headingColor text-2xl cursor-pointer" />
 
-                        <div className="flex items-start flex-col bg-white">
+                        <div className="flex items-start flex-col ">
                             <p className="text-lg text-headingColor font-semibold">
                                 {`${music?.name.length > 20 ? music?.name.slice(0, 20) : music?.name}`}{" "}
                                 <span className="text-base">({music?.album})</span>

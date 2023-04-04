@@ -13,6 +13,7 @@ import Trending from "./pages/Trending";
 import { AddNewArtist } from "./pages/Dashboard/DashboardNewSong";
 import DashboardAddArtist from "./pages/Dashboard/DashboardAddArtist";
 import DashboardAddAlbum from "./pages/Dashboard/DashboardAddAlbum";
+import Explore from "./pages/Explore";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -38,12 +39,7 @@ function App() {
                         </NoAuth>
                     }
                 />
-                 <Route
-                    path="/trending"
-                    element={                      
-                            <Trending />
-                    }
-                />
+                <Route path="/trending" element={<Trending />} />
 
                 <Route
                     path="/dashboard/*"
@@ -53,6 +49,8 @@ function App() {
                         </NeedAuth>
                     }
                 />
+
+                <Route path="/explore/" element={<Explore />} />
 
                 <Route
                     path="/dashboard/addArtist"
