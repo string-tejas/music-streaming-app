@@ -10,6 +10,7 @@ import { useStateValue } from "./context/StateProvider";
 import { motion } from "framer-motion";
 import MusicPlayer from "./components/MusicPlayer";
 import Trending from "./pages/Trending";
+import Explore from "./pages/Explore";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -35,12 +36,7 @@ function App() {
                         </NoAuth>
                     }
                 />
-                 <Route
-                    path="/trending"
-                    element={                      
-                            <Trending />
-                    }
-                />
+                <Route path="/trending" element={<Trending />} />
 
                 <Route
                     path="/dashboard/*"
@@ -50,6 +46,8 @@ function App() {
                         </NeedAuth>
                     }
                 />
+
+                <Route path="/explore/" element={<Explore />} />
 
                 <Route
                     path="/*"
