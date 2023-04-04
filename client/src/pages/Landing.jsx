@@ -115,7 +115,7 @@ export const Heading = () => {
     const { auth } = useAuth();
 
     return (
-        <header className="w-full h-18 py-2 flex items-center shadow-md relative">
+        <header className="w-full h-18 py-2 flex items-center shadow-md relative z-10">
             <img
                 className="absolute h-full w-[500px]"
                 src={images.wave2}
@@ -213,7 +213,7 @@ const UserCard = () => {
         <div
             onMouseEnter={() => setIsMenu(true)}
             onMouseLeave={() => setIsMenu(false)}
-            className="flex items-center ml-auto z=[100] cursor-pointer backdrop-blur-sm gap-2 relative min-w-[100px] py-1 rounded-full border-2 hover:shadow-md hover:bg-white hover:border-gray-300"
+            className="flex mr-2 items-center ml-auto z=[100] cursor-pointer backdrop-blur-sm gap-2 relative min-w-[100px] py-1 rounded-full border-2 hover:shadow-md hover:bg-white hover:border-gray-300"
         >
             <img
                 src={user?.imageURL || images.avatar}

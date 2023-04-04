@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Outfit", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Outfit", sans-serif;
 }
 .rhap_container {
-  background-color: transparent !important;
-  box-shadow: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
 }
 
 .rhap_play-pause-button {
-  color: #ff0000 !important;
-  transition: all 0.3s ease-in-out;
+    color: #ff0000 !important;
+    transition: all 0.3s ease-in-out;
 }
 
 .rhap_play-pause-button:hover {
-  transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 .rhap_forward-button,
@@ -27,7 +27,7 @@
 .rhap_skip-button,
 .rhap_volume-button,
 .rhap_repeat-button {
-  transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .rhap_forward-button:hover,
@@ -35,25 +35,53 @@
 .rhap_skip-button:hover,
 .rhap_volume-button:hover,
 .rhap_repeat-button:hover {
-  transform: scale(1.2);
-  color: #555 !important;
+    transform: scale(1.2);
+    color: #555 !important;
 }
 
 .rhap_progress-filled {
-  background-color: #ff0000 !important;
+    background-color: #ff0000 !important;
 }
 
 .rhap_progress-indicator,
 .rhap_volume-indicator {
-  background: #b4b4b4 !important;
+    background: #b4b4b4 !important;
 }
 
 .rhap_progress-indicator:hover,
 .rhap_volume-indicator:hover {
-  transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 .rhap_download-progress,
 .rhap_volume-bar {
-  background-color: #ff000033 !important;
+    background-color: #ff000033 !important;
+}
+.rhap_main {
+    width: 100%;
+}
+@media screen and (max-width: 670px) {
+    .rhap_main {
+        width: 70vw;
+    }
+}
+@media screen and (max-width: 500px) {
+    .rhap_main {
+        width: 200px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .rhap_main {
+        width: 200px;
+    }
+    .rhap_controls-section button {
+        height: 30px;
+        width: 30px;
+        padding: 1px;
+        margin: 0px;
+    }
+    .rhap_controls-section button svg {
+        height: 22px;
+        width: 22px;
+    }
 }
