@@ -37,10 +37,8 @@ function App() {
                 />
                  <Route
                     path="/trending"
-                    element={
-                        <NoAuth>
+                    element={                      
                             <Trending />
-                        </NoAuth>
                     }
                 />
 

@@ -1,0 +1,9 @@
+.song-img{
+    width: auto !important;
+    max-height: 90% !important;
+    height: 15rem; 
+}
+
+.card-main-div{
+    padding: 20px;
+}
