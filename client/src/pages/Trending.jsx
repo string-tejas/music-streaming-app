@@ -49,16 +49,23 @@ const Trending = () => {
     return (
         <>
             <Heading />
-            <SectionHeading>
-                Trending Songs <BsFire className="ml-2" style={{ color: "#e5915d" }} />
-            </SectionHeading>
-            <SongContainer>
-                {allSongs?.map((song, index) => {
-                    return (
-                        <MySongCard song={song} key={song._id} onClick={() => onSongClick(song, index)} delay={index} />
-                    );
-                })}
-            </SongContainer>
+            <div className="bg-gradient-to-t from-blue-400 to-white">
+                <SectionHeading>
+                    Trending Songs <BsFire className="ml-2" style={{ color: "#e5915d" }} />
+                </SectionHeading>
+                <SongContainer>
+                    {allSongs?.map((song, index) => {
+                        return (
+                            <MySongCard
+                                song={song}
+                                key={song._id}
+                                onClick={() => onSongClick(song, index)}
+                                delay={index}
+                            />
+                        );
+                    })}
+                </SongContainer>
+            </div>
         </>
     );
 };

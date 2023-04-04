@@ -10,13 +10,12 @@ const MySongCard = ({ song, onClick = () => {}, delay = 0 }) => {
                 y: 0,
                 transition: {
                     type: "spring",
-
-                    delay: delay * 0.1,
+                    delay: delay * 0.08,
                 },
             }}
             whileTap={{ scale: 0.95 }}
             onClick={onClick}
-            className="bg-white relative hover:bg-gray-200 shadow-[0_0_2px_black] rounded-lg transition-all cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2),_0_0_4px_#333] "
+            className="bg-white relative shadow-[0_0_2px_black] rounded-lg transition-all cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2),_0_0_4px_#333] "
         >
             <div className="relative">
                 <img
