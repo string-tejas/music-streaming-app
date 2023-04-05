@@ -76,11 +76,40 @@ const MusicPlayer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [songIndex]);
 
-    const updateCount = (id) => {
-        console.log(" id : ", id);
-        updateSongCount(id)
+    const updateCount = (song) => {
+       
+        var flag =  false;
+        var history =  JSON.parse(localStorage.getItem("history") || "[]" ) ;
+        console.log(" history 1 : ", history);
+        if(history.length > 0) {
+             history.map((item, index) => {
+                if(item._id === song._id) {
+                     flag = true;
+                }
+             })
+             if(!flag) {
+                history.push(song);
+                localStorage.setItem("history", JSON.stringify(history));
+                history =  JSON.parse(localStorage.getItem("history")) ;
+                console.log(" history 2 : ", history);
+
+             }
+        }
+        else {
+            if(!flag) {
+                history.push(song);
+                localStorage.setItem("history", JSON.stringify(history));
+                history =  JSON.parse(localStorage.getItem("history")) ;
+                console.log(" history 2 : ", history);
+                if (history.length > 10) {
+                     history.shift();
+                    }
+             }
+        }
+    
+        updateSongCount(song._id)
             .then((data) => {
-                console.log(" data of success : ", data);
+                
             })
             .catch((err) => console.log(" error in count : ", err));
     };
@@ -127,7 +156,7 @@ const MusicPlayer = () => {
                 <div className="flex-1">
                     <AudioPlayer
                         src={allSongs[songIndex]?.songURL}
-                        onPlay={() => updateCount(allSongs[songIndex]?._id)}
+                        onPlay={() => updateCount(allSongs[songIndex])}
                         autoPlay={true}
                         showSkipControls={true}
                         onEnded={() => nextTrack()}

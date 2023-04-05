@@ -19,7 +19,7 @@ export const DashboardCard = ({ icon, name, count }) => {
 };
 
 const DashboardHome = () => {
-  const [{ allUsers, allSongs, allArtists, allAlbums,allStreams }, dispatch] =
+  const [{ allUsers, allSongs, artists, allAlbums,allStreams }, dispatch] =
     useStateValue();
   useEffect(() => {
     if (!allUsers) {
@@ -41,12 +41,14 @@ const DashboardHome = () => {
           dispatch({ type : actionType.SET_ALL_SONGS, allSongs : data.song})
       })
     }
-    if(!allArtists) {
+    if(!artists) {
       getAllArtist().then(data => {
-        console.log("artists data : ",data.artist);
-        dispatch({type : actionType.SET_ARTISTS, allArtists : data})
+  
+        dispatch({type : actionType.SET_ARTISTS, artists : data.artist})
+        console.log("artists data : ",artists?.length);
       })
     }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -71,7 +73,7 @@ const DashboardHome = () => {
       <DashboardCard 
       icon={<MdVerifiedUser className="text-3xl text-textColor" />}
       name={"Arists"}
-      count={allArtists?.length > 0 ? allArtists?.length : 0} />
+      count={artists?.length > 0 ? artists?.length : 0} />
     </div>
   );
 };
