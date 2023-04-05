@@ -14,6 +14,7 @@ import { AddNewArtist } from "./pages/Dashboard/DashboardNewSong";
 import DashboardAddArtist from "./pages/Dashboard/DashboardAddArtist";
 import DashboardAddAlbum from "./pages/Dashboard/DashboardAddAlbum";
 import Explore from "./pages/Explore";
+import Artist from "./pages/Artist";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -61,7 +62,7 @@ function App() {
                     }
                 />
 
-<Route
+                <Route
                     path="/dashboard/addAlbum"
                     element={
                         <NeedAuth>
@@ -69,6 +70,8 @@ function App() {
                         </NeedAuth>
                     }
                 />
+
+                <Route path="/artist/:name" element={<Artist />} />
 
                 <Route
                     path="/*"

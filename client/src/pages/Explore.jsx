@@ -7,7 +7,7 @@ import { useStateValue } from "../context/StateProvider";
 import MySongCard from "../components/MySongCard";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Search from "./Search";
-import { exploreSongs, searchAll } from "../api";
+import { exploreSongs, searchAll, updateSongCount } from "../api";
 import { actionType } from "../context/reducer";
 
 const Explore = () => {
@@ -32,8 +32,8 @@ const Explore = () => {
         navigate(`/explore/search`, { state: { search } });
     };
 
-    const playSong = (song, index) => {
-        dispatch({ type: actionType.SET_ALL_SONGS, allSongs: searchResult.songs });
+    const playSong = (song, index, collection) => {
+        dispatch({ type: actionType.SET_ALL_SONGS, allSongs: collection });
 
         if (!isSongPlaying) {
             dispatch({
@@ -48,6 +48,11 @@ const Explore = () => {
                 songIndex: index,
             });
         }
+        updateSongCount(song._id)
+            .then((data) => {
+                console.log(" data of success : ", data);
+            })
+            .catch((err) => console.log(" error in count : ", err));
     };
 
     return (
@@ -75,47 +80,40 @@ const Explore = () => {
     );
 };
 
-const CategoryWiseSongs = ({ allSongs }) => {
-    const [songs, setSongs] = React.useState([]);
+const CategoryWiseSongs = ({ playSong }) => {
+    const [catWiseSongs, setCatWiseSongs] = React.useState([]);
 
     useEffect(() => {
         exploreSongs().then((res) => {
             console.log("res : ", res);
+            setCatWiseSongs(res);
         });
     }, []);
 
     return (
         <>
-            <SectionHeading>Indian Classical</SectionHeading>
-            <SongContainer noBottomGap>
-                {allSongs
-                    ?.filter((song) => song.category === "Indian classical")
-                    ?.map((song, index) => {
-                        return (
-                            <MySongCard
-                                song={song}
-                                key={song._id}
-                                // onClick={() => onSongClick(song, index)}
-                                delay={index}
-                            />
-                        );
-                    })}
-            </SongContainer>
-            <SectionHeading>Indi Pop</SectionHeading>
-            <SongContainer noBottomGap>
-                {allSongs
-                    ?.filter((song) => song.category === "Indi-pop")
-                    ?.map((song, index) => {
-                        return (
-                            <MySongCard
-                                song={song}
-                                key={song._id}
-                                // onClick={() => onSongClick(song, index)}
-                                delay={index}
-                            />
-                        );
-                    })}
-            </SongContainer>
+            {catWiseSongs.length > 0 &&
+                catWiseSongs.map((cat, index) => {
+                    return (
+                        <React.Fragment key={cat._id}>
+                            <SectionHeading>{cat._id}</SectionHeading>
+                            <SongContainer noBottomGap={index !== catWiseSongs.length - 1}>
+                                {cat.songs.map((song, index) => {
+                                    return (
+                                        <MySongCard
+                                            song={song}
+                                            key={song._id}
+                                            onClick={() => {
+                                                playSong(song, index, cat.songs);
+                                            }}
+                                            delay={index}
+                                        />
+                                    );
+                                })}
+                            </SongContainer>
+                        </React.Fragment>
+                    );
+                })}
         </>
     );
 };

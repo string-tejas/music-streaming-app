@@ -165,3 +165,23 @@ export const exploreSongs = async () => {
         return null;
     }
 };
+
+// write full function getArtistByName
+export const getArtistByName = async (name) => {
+    try {
+        const res = await axios.get(`${baseURL}/artists/getArtistByName/${name}`);
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};
+
+// get songs by artist name
+export const getSongsByArtistName = async (name) => {
+    try {
+        const res = await axios.get(`${baseURL}/songs/by-artist/${name}`);
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};

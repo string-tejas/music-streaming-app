@@ -118,6 +118,7 @@ router.get("/explore-category", async (req, res) => {
                         artist: "$artist",
                         language: "$language",
                         count: "$count",
+                        _id: "$_id",
                     },
                 },
                 totalListenCount: {
@@ -133,6 +134,15 @@ router.get("/explore-category", async (req, res) => {
     ]);
 
     return res.json(data);
+});
+
+router.get("/by-artist/:artist", async (req, res) => {
+    const data = await song.find({ artist: req.params.artist });
+    if (data) {
+        return res.status(200).send({ success: true, song: data });
+    } else {
+        return res.status(400).send({ success: false, message: "No Song found" });
+    }
 });
 
 module.exports = router;

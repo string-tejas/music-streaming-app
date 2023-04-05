@@ -4,9 +4,15 @@ import SongContainer from "../components/SongContainer";
 import MySongCard from "../components/MySongCard";
 import ArtistCard from "../components/ArtistCard";
 import ArtistContainer from "../components/ArtistContainer";
+import { useNavigate } from "react-router-dom";
 
 const Search = ({ songs = [], artists = [], albums = [], playSong = () => {}, searchLoading = true }) => {
-    console.log("songs : ", songs);
+    const navigate = useNavigate();
+
+    const onArtistClick = (artistName) => {
+        navigate(`/artist/${artistName}`);
+    };
+
     return (
         <div>
             <SectionHeading>Songs</SectionHeading>
@@ -27,7 +33,7 @@ const Search = ({ songs = [], artists = [], albums = [], playSong = () => {}, se
                 )}
                 {artists?.map((artist) => {
                     console.log(artist);
-                    return <ArtistCard artist={artist} key={artist._id} />;
+                    return <ArtistCard artist={artist} key={artist._id} onClick={() => onArtistClick(artist.name)} />;
                 })}
             </ArtistContainer>
         </div>
