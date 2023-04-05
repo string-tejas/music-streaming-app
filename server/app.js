@@ -31,6 +31,10 @@ app.use("/api/albums/", albumRoutes);
 const songsRoutes = require("./routes/songs");
 app.use("/api/songs/", songsRoutes);
 
+// request routes
+const requestRoutes = require("./routes/requests");
+app.use("/api/requests", requestRoutes);
+
 app.get("/", (req, res) => {
   return res.json("Hi there ");
 });
