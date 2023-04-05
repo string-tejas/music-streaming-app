@@ -1,30 +1,51 @@
-import React, { useEffect } from "react";
-import { getAllUsers } from "../../api";
+import React, { useEffect, useState } from "react";
+import { getAllArtist, getAllSongs, getAllUsers } from "../../api";
 import { actionType } from "../../context/reducer";
 import { useStateValue } from "../../context/StateProvider";
-import { FaUsers } from "react-icons/fa";
+import { FaMusic, FaUsers } from "react-icons/fa";
 import { GiLoveSong, GiMusicalNotes } from "react-icons/gi";
 import { RiUserStarFill } from "react-icons/ri";
+import { BsFillPlayFill } from "react-icons/bs";
+import { MdVerifiedUser } from "react-icons/md";
 
 export const DashboardCard = ({ icon, name, count }) => {
   return (
     <div className="p-4 w-40 gap-3 h-auto rounded-lg shadow-md bg-blue-200">
-      {icon}
-      <p className="text-xl text-textColor font-semibold">{name}</p>
-      <p className="text-xl text-textColor">{count}</p>
+     <center> {icon}</center> 
+     <center> <p className="text-xl text-textColor font-semibold">{name}</p> </center> 
+     <center> <p className="text-xl text-textColor">{count}</p> </center> 
     </div>
   );
 };
 
 const DashboardHome = () => {
-  const [{ allUsers, allSongs, allArtists, allAlbums }, dispatch] =
+  const [{ allUsers, allSongs, allArtists, allAlbums,allStreams }, dispatch] =
     useStateValue();
-
   useEffect(() => {
     if (!allUsers) {
       getAllUsers().then((data) =>
         dispatch({ type: actionType.SET_ALL_USERS, allUsers: data.data })
       );
+    }
+    if(!allSongs) {
+   
+      getAllSongs().then((data) => {
+      var count = 0;
+          if(data.song) {
+            data.song.map((song, index) => {
+              count = count + song.count;
+            })
+            dispatch({type : actionType.SET_ALL_STREAMS, allStreams : count})
+            
+          }
+          dispatch({ type : actionType.SET_ALL_SONGS, allSongs : data.song})
+      })
+    }
+    if(!allArtists) {
+      getAllArtist().then(data => {
+        console.log("artists data : ",data.artist);
+        dispatch({type : actionType.SET_ARTISTS, allArtists : data})
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -36,9 +57,21 @@ const DashboardHome = () => {
         name={"Users"}
         count={allUsers?.length > 0 ? allUsers?.length : 0}
       />
-      <DashboardCard />
-      <DashboardCard />
-      <DashboardCard />
+
+      <DashboardCard 
+      icon={<BsFillPlayFill className="text-3xl text-textColor" />}
+      name={"Streams"}
+      count={allStreams > 0 ? allStreams : 0}  />
+
+      <DashboardCard  
+      icon={<FaMusic className="text-3xl text-textColor" />}
+      name={"Songs"}
+      count={allSongs?.length > 0 ? allSongs?.length : 0} />
+
+      <DashboardCard 
+      icon={<MdVerifiedUser className="text-3xl text-textColor" />}
+      name={"Arists"}
+      count={allArtists?.length > 0 ? allArtists?.length : 0} />
     </div>
   );
 };

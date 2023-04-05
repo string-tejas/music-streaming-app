@@ -9,6 +9,7 @@ const initialState = {
   allSongs: null,
   allAlbums: null,
   albumFilter: null,
+  allStreams : null,
   songIndex: 0,
   isSongPlaying: false,
   miniPlayer: false,

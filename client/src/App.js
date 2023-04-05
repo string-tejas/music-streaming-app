@@ -10,6 +10,9 @@ import { useStateValue } from "./context/StateProvider";
 import { motion } from "framer-motion";
 import MusicPlayer from "./components/MusicPlayer";
 import Trending from "./pages/Trending";
+import { AddNewArtist } from "./pages/Dashboard/DashboardNewSong";
+import DashboardAddArtist from "./pages/Dashboard/DashboardAddArtist";
+import DashboardAddAlbum from "./pages/Dashboard/DashboardAddAlbum";
 import Explore from "./pages/Explore";
 
 function App() {
@@ -48,6 +51,24 @@ function App() {
                 />
 
                 <Route path="/explore/*" element={<Explore />} />
+
+                <Route
+                    path="/dashboard/addArtist"
+                    element={
+                        <NeedAuth>
+                            <DashboardAddArtist />
+                        </NeedAuth>
+                    }
+                />
+
+<Route
+                    path="/dashboard/addAlbum"
+                    element={
+                        <NeedAuth>
+                            <DashboardAddAlbum />
+                        </NeedAuth>
+                    }
+                />
 
                 <Route
                     path="/*"
