@@ -8,6 +8,7 @@ import { IoAdd } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { getAllSongs } from "../../api";
 import SongCard from "../ItemCard";
+import { FiRefreshCw } from "react-icons/fi";
 // import AlertSuccess from "./AlertSuccess";
 // import AlertError from "./AlertError";
 
@@ -16,15 +17,17 @@ const DashboardSongs = () => {
     const [isFocus, setIsFocus] = useState(false);
     const [{ allSongs }, dispath] = useStateValue();
 
-    useEffect(() => {
-        if (!allSongs) {
-            getAllSongs().then((data) => {
-                dispath({
-                    type: actionType.SET_ALL_SONGS,
-                    allSongs: data.song,
-                });
+    const fetchSongs = () => {
+        getAllSongs().then((data) => {
+            dispath({
+                type: actionType.SET_ALL_SONGS,
+                allSongs: data.song,
             });
-        }
+        });
+    };
+
+    useEffect(() => {
+        fetchSongs();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -53,9 +56,9 @@ const DashboardSongs = () => {
                     }}
                     onFocus={() => setIsFocus(true)}
                 ></input>
-                <i>
-                    <AiOutlineClear className="text-3xl text-textColor cursor-pointer " />
-                </i>
+                <button className="border px-2 py-1" onClick={fetchSongs}>
+                    <FiRefreshCw className="text-3xl text-textColor cursor-pointer " />
+                </button>
             </div>
 
             <div className="relative w-full  my-4 p-4 py-12 border border-gray-300 rounded-md">

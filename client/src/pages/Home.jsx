@@ -13,10 +13,9 @@ const Home = () => {
     const [{ user }] = useStateValue();
     const [{ allSongs, isSongPlaying, songIndex }, dispatch] = useStateValue();
     useEffect(() => {
-        var historyy =  JSON.parse(localStorage.getItem("history") || "[]" ) ;
+        var historyy = JSON.parse(localStorage.getItem("history") || "[]");
         setHistory(historyy);
-        
-    }, [])
+    }, []);
 
     const onSongClick = (song, index) => {
         playSong(index);
@@ -29,6 +28,7 @@ const Home = () => {
     };
     const playSong = (index) => {
         // console.log("added", song);
+        dispatch({ type: actionType.SET_ALL_SONGS, allSongs: history });
         if (!isSongPlaying) {
             dispatch({
                 type: actionType.SET_IS_SONG_PLAYING,
@@ -43,8 +43,7 @@ const Home = () => {
             });
         }
     };
-    
-    
+
     return (
         <>
             <Heading />
@@ -59,8 +58,9 @@ const Home = () => {
                 </NavLink> </SectionHeading> : <></>}
 
             <SectionHeading>Continue Listening</SectionHeading>
-            <SongContainer>
-                    {history?.length > 0 && history?.map((song, index) => {
+            <SongContainer noBottomGap>
+                {history?.length > 0 &&
+                    history?.reverse()?.map((song, index) => {
                         return (
                             <MySongCard
                                 song={song}
@@ -70,7 +70,7 @@ const Home = () => {
                             />
                         );
                     })}
-                </SongContainer>
+            </SongContainer>
             <SectionHeading>Recommended For you</SectionHeading>
         </>
     );
