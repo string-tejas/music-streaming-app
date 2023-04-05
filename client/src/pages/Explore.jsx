@@ -7,7 +7,7 @@ import { useStateValue } from "../context/StateProvider";
 import MySongCard from "../components/MySongCard";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Search from "./Search";
-import { searchAll } from "../api";
+import { exploreSongs, searchAll } from "../api";
 import { actionType } from "../context/reducer";
 
 const Explore = () => {
@@ -76,7 +76,13 @@ const Explore = () => {
 };
 
 const CategoryWiseSongs = ({ allSongs }) => {
-    useEffect(() => {}, []);
+    const [songs, setSongs] = React.useState([]);
+
+    useEffect(() => {
+        exploreSongs().then((res) => {
+            console.log("res : ", res);
+        });
+    }, []);
 
     return (
         <>

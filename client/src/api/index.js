@@ -156,3 +156,12 @@ export const searchAll = async (query) => {
         return null;
     }
 };
+
+export const exploreSongs = async () => {
+    try {
+        const res = await axios.get(`${baseURL}/songs/explore-category`);
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};
