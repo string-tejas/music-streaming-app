@@ -9,11 +9,11 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 mongoose
-  .connect(process.env.DB_STRING, { useNewUrlParser: true })
-  .then(() => {
-    console.log("Db Connected");
-  })
-  .catch((e) => console.log(e));
+    .connect(process.env.DB_STRING, { useNewUrlParser: true })
+    .then(() => {
+        console.log("Db Connected");
+    })
+    .catch((e) => console.log(e));
 
 // user authentication routes
 const userRoutes = require("./routes/auth");
@@ -31,8 +31,11 @@ app.use("/api/albums/", albumRoutes);
 const songsRoutes = require("./routes/songs");
 app.use("/api/songs/", songsRoutes);
 
+const searchRoutes = require("./routes/search");
+app.use("/api/search/", searchRoutes);
+
 app.get("/", (req, res) => {
-  return res.json("Hi there ");
+    return res.json("Hi there ");
 });
 
 app.listen(4000, () => console.log("APP RUNNING ON 4000 "));

@@ -47,7 +47,7 @@ function App() {
                     }
                 />
 
-                <Route path="/explore/" element={<Explore />} />
+                <Route path="/explore/*" element={<Explore />} />
 
                 <Route
                     path="/*"

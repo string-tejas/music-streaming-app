@@ -39,7 +39,7 @@ const SearchBox = ({ className, handleSongSearch = () => {} }) => {
                     type="search"
                     id="default-search"
                     className="block w-full p-4 pl-10 text-sm text-gray-900 border-gray-300 shadow-sm focus:shadow-md border-2 rounded-lg bg-gray-50  focus:border-blue-500 outline-none "
-                    placeholder="Search your favorite songs"
+                    placeholder="Search your favorite songs, artists or albums"
                     required
                 />
                 <button

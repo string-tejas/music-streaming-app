@@ -10,12 +10,14 @@ import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
 const Trending = () => {
-    const [{ allSongs, isSongPlaying, songIndex }, dispatch] = useStateValue();
+    const [{ isSongPlaying, songIndex }, dispatch] = useStateValue();
+    const [trendingSongs, setTrendingSongs] = React.useState([]);
 
     useEffect(() => {
         getTrendingSongs()
             .then((data) => {
-                dispatch({ type: actionType.SET_ALL_SONGS, allSongs: data.data.song });
+                // dispatch({ type: actionType.SET_ALL_SONGS, allSongs: data.data.song });
+                setTrendingSongs(data.data.song);
             })
             .catch((err) => console.log(" error in trending : ", err));
     }, []);
@@ -31,6 +33,8 @@ const Trending = () => {
     };
     const playSong = (index) => {
         // console.log("added", song);
+        dispatch({ type: actionType.SET_ALL_SONGS, allSongs: trendingSongs });
+
         if (!isSongPlaying) {
             dispatch({
                 type: actionType.SET_IS_SONG_PLAYING,
@@ -49,12 +53,12 @@ const Trending = () => {
     return (
         <>
             <Heading />
-            <div className="bg-gradient-to-t from-blue-400 to-white">
+            <div className="">
                 <SectionHeading>
                     Trending Songs <BsFire className="ml-2" style={{ color: "#e5915d" }} />
                 </SectionHeading>
                 <SongContainer>
-                    {allSongs?.map((song, index) => {
+                    {trendingSongs?.map((song, index) => {
                         return (
                             <MySongCard
                                 song={song}

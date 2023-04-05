@@ -100,7 +100,7 @@ const MusicPlayer = () => {
                 <div className="flex items-start flex-col">
                     <p className="text-[14px] md:text-xl text-headingColor font-semibold">
                         {`${
-                            allSongs[songIndex]?.name.length > 20
+                            allSongs[songIndex]?.name?.length > 20
                                 ? allSongs[songIndex]?.name.slice(0, 20)
                                 : allSongs[songIndex]?.name
                         }`}{" "}
