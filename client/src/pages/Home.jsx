@@ -6,9 +6,11 @@ import MySongCard from "../components/MySongCard";
 import { updateSongCount } from "../api";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
     const [history, setHistory] = useState();
+    const [{ user }] = useStateValue();
     const [{ allSongs, isSongPlaying, songIndex }, dispatch] = useStateValue();
     useEffect(() => {
         var historyy = JSON.parse(localStorage.getItem("history") || "[]");
@@ -45,6 +47,16 @@ const Home = () => {
     return (
         <>
             <Heading />
+
+            {user && user.role === "member" ? <SectionHeading>Join as Artist  
+            <NavLink
+                    to={"/requestArtist"}
+                    className="flex items-center justify-center px-4 py-3 border rounded-md border-gray-300
+       hover:border-gray-500 hover:shadow-md cursor-pointer"
+                >
+                Request
+                </NavLink> </SectionHeading> : <></>}
+
             <SectionHeading>Continue Listening</SectionHeading>
             <SongContainer noBottomGap>
                 {history?.length > 0 &&

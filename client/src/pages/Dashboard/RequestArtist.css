@@ -1,0 +1,17 @@
+.artist-div{
+    margin-left: 14vh;
+}
+
+.artist-content{
+    margin-bottom: 1vh;
+    font-size: 18px;
+}
+
+.submit-btn{
+    background-color: rgb(14, 110, 255);
+    padding: 15px;
+    border-radius: 10px;
+    color: white !important;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}

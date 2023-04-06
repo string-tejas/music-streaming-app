@@ -14,6 +14,8 @@ import { AddNewArtist } from "./pages/Dashboard/DashboardNewSong";
 import DashboardAddArtist from "./pages/Dashboard/DashboardAddArtist";
 import DashboardAddAlbum from "./pages/Dashboard/DashboardAddAlbum";
 import Explore from "./pages/Explore";
+import RequestArtist from "./pages/Dashboard/RequestArtist";
+import DashboardArtistRequest from "./pages/Dashboard/DashboardArtistRequest";
 import Artist from "./pages/Artist";
 
 function App() {
@@ -51,6 +53,25 @@ function App() {
                     }
                 />
 
+<Route
+                    path="/dashboard/artistRequest"
+                    element={
+                        <NeedAuth>
+                            <DashboardArtistRequest />
+                        </NeedAuth>
+                    }
+                />
+
+            <Route
+                    path="/requestArtist"
+                    element={
+                        <NeedAuth>
+                            <RequestArtist/>
+                        </NeedAuth>
+                    }
+                />
+
+                <Route path="/explore/" element={<Explore />} />
                 <Route path="/explore/*" element={<Explore />} />
 
                 <Route
