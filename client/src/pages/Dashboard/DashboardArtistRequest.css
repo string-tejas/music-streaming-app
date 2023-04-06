@@ -1,0 +1,44 @@
+.request-content{
+    margin-left: 30vh;
+}
+
+.table-head {
+    border-bottom: 2px solid;
+    border: 2px solid;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.table-content{
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.approve-btn{
+    background-color: rgb(68, 255, 17);
+    color: black !important;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+}
+
+.main-div{
+    width: 80%;
+    justify-content: center;
+}
+
+.table-row{
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
+.table-row-content{
+    font-weight: normal;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

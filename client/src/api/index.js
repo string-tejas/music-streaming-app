@@ -49,6 +49,17 @@ export const changingUserRole = async (userId, role) => {
     }
 };
 
+export const changeUserToArtist = async (userId, role) => {
+    try {
+        const res = api.put(`/users/updateUserToArtist/${userId}`, {
+            data: { role: role },
+        });
+        return res;
+    } catch (error) {
+        return null;
+    }
+};
+
 export const requestArtist = async (data) => {
   try {
     const res = axios.post(`${baseURL}/requests/createRequest`, { ...data });
@@ -57,6 +68,15 @@ export const requestArtist = async (data) => {
     console.log("err in request artist : ",error);
   }
 };
+
+export const approveRequestProperty = async (requestId) => {
+    try {
+      const res = axios.put(`${baseURL}/requests/approveRequest/${requestId}`);
+      return res;
+    } catch (error) {
+      console.log("err in request artist : ",error);
+    }
+  };
 
 export const getArtistRequests = async () => {
   try {

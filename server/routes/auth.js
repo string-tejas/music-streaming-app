@@ -157,4 +157,29 @@ router.put("/removeFavourites/:userId", async (req, res) => {
   }
 });
 
+router.put("/updateUserToArtist/:id", async ( req, res ) => {
+
+  const filter = { _id : req.params.id };
+  const options = {
+    upsert : true,
+    new : true,
+  }
+
+  try {
+    const result = await user.findByIdAndUpdate(
+      filter,
+      { role : "artist" },
+      options,    
+    )
+    return res.status(200).send({ success  :true, user : result});
+  }
+  catch(error) {
+    return res.status(400).send({ success : false, message : error});
+  }
+
+  
+
+
+})
+
 module.exports = router;

@@ -16,7 +16,7 @@ router.get("/getRequests", async ( req, res ) => {
 } );
 
 router.post("/createRequest", async ( req, res ) => {
-
+console.log ("req.body : ", req.body);
 const objectId = new ObjectId(req.body.user) ;
     try {
         const data = new request({
@@ -28,6 +28,25 @@ const objectId = new ObjectId(req.body.user) ;
     }
     catch(error) {
         return res.status(400).send({success : false, message : error});
+    }
+})
+
+router.put("/approveRequest/:id" , async ( req, res ) => {
+ const filter = { _id : req.params.id };
+ const options = { 
+    upsert : true,
+    new : true,
+ }
+    try {
+        const result = await request.findByIdAndUpdate(
+            filter,
+            { isApproved : true},
+            options
+        );
+        return res.status(200).send({ success : true, request : result});
+    }
+    catch(error) {
+        return res.status(400).send({ success  :false, message : error});
     }
 })
 
