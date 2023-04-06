@@ -36,7 +36,7 @@ const DashboardAlbums = () => {
    hover:border-gray-500 hover:shadow-md cursor-pointer"
                 >
                     <IoAdd style={{ marginRight: "4px" }} />
-                    Artists Artist
+                    Add Artist
                 </NavLink>
             </div>
             <div className="relative w-full  my-4 p-4 py-12 border border-gray-300 rounded-md">
