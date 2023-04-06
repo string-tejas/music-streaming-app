@@ -21,7 +21,12 @@ const Search = ({ songs = [], artists = [], albums = [], playSong = () => {}, se
                 {songs?.length === 0 && !searchLoading && <p className="text-gray-400 text-center">No songs found</p>}
                 {songs?.map((song, index) => {
                     return (
-                        <MySongCard song={song} key={song._id} onClick={() => playSong(song, index)} delay={index} />
+                        <MySongCard
+                            song={song}
+                            key={song._id}
+                            onClick={() => playSong(song, index, songs)}
+                            delay={index}
+                        />
                     );
                 })}
             </SongContainer>
