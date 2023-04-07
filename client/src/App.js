@@ -18,6 +18,7 @@ import RequestArtist from "./pages/Dashboard/RequestArtist";
 import DashboardArtistRequest from "./pages/Dashboard/DashboardArtistRequest";
 import Artist from "./pages/Artist";
 import images from "./assets/images";
+import Favorites from "./pages/Favorites";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -68,6 +69,14 @@ function App() {
                     element={
                         <NeedAuth>
                             <RequestArtist />
+                        </NeedAuth>
+                    }
+                />
+                <Route
+                    path="/favorites"
+                    element={
+                        <NeedAuth>
+                            <Favorites />
                         </NeedAuth>
                     }
                 />

@@ -11,10 +11,13 @@ import { getAllSongs, updateSongCount } from "../api";
 import { RiPlayListFill } from "react-icons/ri";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import { useAuth } from "../context/AuthContext";
 
 const MusicPlayer = () => {
     const [isPlayList, setIsPlayList] = useState(false);
     const [{ allSongs, songIndex, isSongPlaying, miniPlayer }, dispatch] = useStateValue();
+    const { firebaseAuth } = useAuth();
+    const [isFavorite, setIsFavorite] = useState(false);
 
     const closeMusicPlayer = () => {
         if (isSongPlaying) {
@@ -74,6 +77,8 @@ const MusicPlayer = () => {
                 songIndex: 0,
             });
         }
+        setIsFavorite(checkIfFavorite(allSongs[songIndex]));
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [songIndex]);
 
@@ -110,6 +115,42 @@ const MusicPlayer = () => {
             .catch((err) => console.log(" error in count : ", err));
     };
 
+    const toggleFavorite = (song) => {
+        const userId = firebaseAuth.currentUser.uid;
+        const currentFavorites = JSON.parse(localStorage.getItem("favorites") || "{}");
+
+        if (userId in currentFavorites) {
+            if (currentFavorites[userId].find((s) => s._id === song._id)) {
+                currentFavorites[userId] = currentFavorites[userId].filter((item) => item._id !== song._id);
+                setIsFavorite(false);
+                localStorage.setItem("favorites", JSON.stringify(currentFavorites));
+            } else {
+                currentFavorites[userId].push(song);
+                setIsFavorite(true);
+                localStorage.setItem("favorites", JSON.stringify(currentFavorites));
+            }
+        } else {
+            currentFavorites[userId] = [];
+            currentFavorites[userId].push(song);
+            localStorage.setItem("favorites", JSON.stringify(currentFavorites));
+            setIsFavorite(true);
+        }
+    };
+    function checkIfFavorite(song) {
+        const userId = firebaseAuth.currentUser.uid;
+        const currentFavorites = JSON.parse(localStorage.getItem("favorites") || "{}");
+        console.log(currentFavorites);
+        if (userId in currentFavorites) {
+            if (currentFavorites[userId].find((a) => a._id === song._id)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     return (
         <div className="w-full">
             <div className=" md:hidden w-[90%] shadow-md border border-gray-400 flex items-center bg-white m-auto mt-2 rounded-lg px-4 py-2">
@@ -123,8 +164,11 @@ const MusicPlayer = () => {
                     <p className="text-sm">{allSongs[songIndex]?.artist}</p>
                 </div>
                 <div>
-                    <button className="bg-blue-500 active:scale-95 transition-all text-white flex items-center justify-center p-1 rounded-full h-9 w-9 ml-auto">
-                        <MdOutlineFavoriteBorder fontSize={18} />
+                    <button
+                        onClick={() => toggleFavorite(allSongs[songIndex])}
+                        className="bg-blue-500 active:scale-95 transition-all text-white flex items-center justify-center p-1 rounded-full h-9 w-9 ml-auto"
+                    >
+                        {isFavorite ? <MdFavorite fontSize={18} /> : <MdOutlineFavoriteBorder fontSize={18} />}
                     </button>
                 </div>
             </div>
@@ -170,8 +214,9 @@ const MusicPlayer = () => {
                             <motion.span
                                 className="flex mt-2 gap-2 items-center bg-blue-600 text-white rounded-full p-2 cursor-pointer"
                                 whileTap={{ scale: 0.95 }}
+                                onClick={() => toggleFavorite(allSongs[songIndex])}
                             >
-                                <MdOutlineFavoriteBorder fontSize={18} />
+                                {isFavorite ? <MdFavorite fontSize={18} /> : <MdOutlineFavoriteBorder fontSize={18} />}
                             </motion.span>
                         </div>
                     </div>
