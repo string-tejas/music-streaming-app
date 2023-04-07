@@ -10,6 +10,7 @@ import { BsSpeedometer } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { useStateValue } from "../context/StateProvider";
 import { useAuth } from "../context/AuthContext";
+import SearchBox from "../components/SearchBox";
 
 const Landing = () => {
     return (
@@ -132,6 +133,7 @@ export const Heading = () => {
                     musify
                 </span>
             </div>
+
             <div className="ml-auto mr-1 md:mr-16 h-full flex gap-2 md:gap-4">
                 <div
                     style={{

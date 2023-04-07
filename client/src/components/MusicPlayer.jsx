@@ -154,7 +154,11 @@ const MusicPlayer = () => {
     return (
         <div className="w-full">
             <div className=" md:hidden w-[90%] shadow-md border border-gray-400 flex items-center bg-white m-auto mt-2 rounded-lg px-4 py-2">
-                <img src={allSongs[songIndex]?.imageURL} alt="song pic" className="w-12 h-12 rounded-full" />
+                <img
+                    src={allSongs[songIndex]?.imageURL}
+                    alt="song pic"
+                    className="w-12 h-12 rounded-full object-cover"
+                />
                 <div className="flex flex-col ml-3 flex-1">
                     <h3 className="font-semibold text-lg">
                         {allSongs[songIndex]?.name?.length > 20

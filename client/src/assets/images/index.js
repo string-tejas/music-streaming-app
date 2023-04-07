@@ -8,6 +8,8 @@ import pattern from "./pattern.png";
 import wavyBg from "./wavy-bg.png";
 import listenMusic from "./listen-music.jpg";
 import dj from "./dj.jpg";
+import waveRed from "./wave-red.png";
+import waveGreen from "./wave-green.jpg";
 
 const obj = {
     authBg,
@@ -20,6 +22,8 @@ const obj = {
     musicBg,
     listenMusic,
     dj,
+    waveRed,
+    waveGreen,
 };
 
 export default obj;

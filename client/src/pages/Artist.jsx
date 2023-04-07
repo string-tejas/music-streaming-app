@@ -68,8 +68,8 @@ const Artist = () => {
                 </p>
             )}
             {!loading && artist && (
-                <div className=" flex min-h-[calc(100vh-72px)]">
-                    <div className="bg-blue-50 shadow-md md:min-h-full w-[300px] flex flex-col items-center ">
+                <div className=" flex min-h-[calc(100vh-72px)] flex-wrap md:flex-nowrap">
+                    <div className="bg-blue-50 shadow-md md:min-h-full w-full pb-4 md:pb-0 md:w-[300px] flex flex-col items-center ">
                         <ArtistCard
                             artist={artist}
                             textClass="text-2xl font-semibold"
@@ -81,7 +81,7 @@ const Artist = () => {
                             consectetur adipiscing elit.
                         </div>
                     </div>
-                    <div>
+                    <div className="w-full md:w-auto">
                         <SectionHeading style={{ marginLeft: "36px" }}>Songs By {artist?.name}</SectionHeading>
                         <SongContainer>
                             {songLoading && <p className="text-gray-400 text-center">Loading...</p>}

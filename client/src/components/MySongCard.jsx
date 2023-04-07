@@ -21,20 +21,22 @@ const MySongCard = ({ song, onClick = () => {}, delay = 0 }) => {
                 <img
                     src={song.imageURL}
                     alt="song cover"
-                    className="rounded-tl-lg rounded-tr-lg h-[240px] w-full object-cover"
+                    className="rounded-tl-lg rounded-tr-lg h-[90px] md:h-[240px] w-full object-cover"
                 />
 
                 <span className="ml-1 absolute left-1 bottom-2 mt-2 text-sm bg-blue-900 inline-block text-white px-3 py-[1px] rounded-full">
                     {song.category}
                 </span>
             </div>
-            <h2 className="pt-1 pb-[1px] px-3 font-semibold text-2xl m-0">{song.name}</h2>
-            <h3 className=" px-3 pb-1 text-base text-[#777] " style={{ lineHeight: "0.9" }}>
+            <h2 className="pt-1 pb-[1px] px-3 font-semibold text-[15px] md:text-2xl m-0" style={{ lineHeight: "1" }}>
+                {song.name}
+            </h2>
+            <h3 className=" px-3 pb-1 text-[#777] text-[12px] md:text-base" style={{ lineHeight: "0.9" }}>
                 By {song.artist || "artist"}
             </h3>
 
-            <h3 className="px-3 pb-1 mt-1 mb-2 text-base text-[#484848] " style={{ lineHeight: "0.9" }}>
-                Album: {song.album || "album"}
+            <h3 className="px-3 pb-1 mt-1 mb-2 text-sm md:text-base text-[#484848] " style={{ lineHeight: "0.9" }}>
+                {song.album || "album"}
             </h3>
             <div className="absolute bottom-2 right-2 bg-red-500 px-1 py-[1px] text-sm flex items-center justify-center min-w-[50px] rounded-full text-white">
                 <BsFire className="mr-2" style={{ color: "#ffe358" }} />

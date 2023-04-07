@@ -10,7 +10,7 @@ const ArtistContainer = ({ children, style, noBottomGap = false }) => {
                 paddingBottom: noBottomGap ? "0" : "8rem",
                 ...style,
             }}
-            className="grid-cols-1 md:grid-cols-4 justify-items-center lg:grid-cols-6 gap-x-12 gap-y-6 pb-8"
+            className="grid-cols-2 md:grid-cols-4 justify-items-center lg:grid-cols-6 gap-x-12 gap-y-6 pb-8"
         >
             {children}
         </div>

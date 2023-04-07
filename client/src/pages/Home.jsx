@@ -12,9 +12,10 @@ const Home = () => {
     const [history, setHistory] = useState();
     const [{ user }] = useStateValue();
     const [{ allSongs, isSongPlaying, songIndex }, dispatch] = useStateValue();
+
     useEffect(() => {
         var historyy = JSON.parse(localStorage.getItem("history") || "[]");
-        setHistory(historyy);
+        setHistory(historyy?.reverse());
     }, []);
 
     const onSongClick = (song, index) => {
@@ -48,19 +49,25 @@ const Home = () => {
         <>
             <Heading />
 
-            {user && user.role === "member" ? <SectionHeading>Join as Artist  
-            <NavLink
-                    to={"/requestArtist"}
-                    className="flex items-center justify-center px-4 py-3 border rounded-md border-gray-300
+            {user && user.role === "member" ? (
+                <SectionHeading>
+                    Join as Artist
+                    <NavLink
+                        to={"/requestArtist"}
+                        className="flex items-center justify-center px-4 py-3 border rounded-md border-gray-300
        hover:border-gray-500 hover:shadow-md cursor-pointer"
-                >
-                Request
-                </NavLink> </SectionHeading> : <></>}
+                    >
+                        Request
+                    </NavLink>{" "}
+                </SectionHeading>
+            ) : (
+                <></>
+            )}
 
             <SectionHeading>Continue Listening</SectionHeading>
             <SongContainer noBottomGap>
                 {history?.length > 0 &&
-                    history?.reverse()?.map((song, index) => {
+                    history?.map((song, index) => {
                         return (
                             <MySongCard
                                 song={song}
