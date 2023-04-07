@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import images from "../assets/images";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BiMenu } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
@@ -202,12 +202,14 @@ export const Heading = () => {
 const UserCard = () => {
     const [{ user }] = useStateValue();
     const { setAuth, firebaseAuth } = useAuth();
+    const navigate = useNavigate();
 
     const [isMenu, setIsMenu] = useState(false);
 
     const handleLogoutClick = async () => {
         await firebaseAuth.signOut().then(() => {
             setAuth(false);
+            navigate("/");
         });
     };
 

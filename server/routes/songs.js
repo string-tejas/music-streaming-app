@@ -1,24 +1,120 @@
 const router = require("express").Router();
 const song = require("../models/songs");
+const axios = require("axios");
 
 router.post("/save", async (req, res) => {
-    const newSong = new song({
-        name: req.body.name,
-        imageURL: req.body.imageURL,
-        songURL: req.body.songURL,
-        album: req.body.album,
-        artist: req.body.artist,
-        language: req.body.language,
-        category: req.body.category,
-        count: 0,
-    });
-
     try {
+        const audioFeatures = await getSongFeatures(req.body.name, req.body.artist);
+
+        audioFeatures.spotify_id = audioFeatures.id;
+        delete audioFeatures.id;
+
+        const newSong = new song({
+            name: req.body.name,
+            imageURL: req.body.imageURL,
+            songURL: req.body.songURL,
+            album: req.body.album,
+            artist: req.body.artist,
+            language: req.body.language,
+            category: req.body.category,
+            count: 0,
+            ...audioFeatures,
+        });
+
         const savedSong = await newSong.save();
+
         return res.status(200).send({ success: true, song: savedSong });
     } catch (error) {
         return res.status(400).send({ success: false, message: error });
     }
+});
+
+const getSongFeatures = (songName, artist) => {
+    return new Promise(async (resolve, reject) => {
+        // get access token
+        try {
+            const tokenResponse = await axios.post(
+                "https://accounts.spotify.com/api/token",
+                {
+                    grant_type: "client_credentials",
+                    client_id: process.env.SPOTIFY_CLIENT_ID,
+                    client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                }
+            );
+
+            const accessToken = tokenResponse.data.access_token;
+
+            // get song details
+            const songResponse = await axios.get(
+                `https://api.spotify.com/v1/search?q=${songName} ${artist}&type=track`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                }
+            );
+            const spotifySong = songResponse.data.tracks.items[0];
+            console.log("Song found", spotifySong.name, "by", spotifySong.artists[0].name);
+            const songId = spotifySong.id;
+
+            // get song audio features
+            const audioFeaturesResponse = await axios.get(`https://api.spotify.com/v1/audio-features/${songId}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const audioFeatures = audioFeaturesResponse.data;
+
+            resolve(audioFeatures);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+router.get("/test", async (req, res) => {
+    // get access token
+    const tokenResponse = await axios.post(
+        "https://accounts.spotify.com/api/token",
+        {
+            grant_type: "client_credentials",
+            client_id: process.env.SPOTIFY_CLIENT_ID,
+            client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+        },
+        {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        }
+    );
+
+    const accessToken = tokenResponse.data.access_token;
+
+    // get song details
+    const songResponse = await axios.get(`https://api.spotify.com/v1/search?q=Perfect ${"Ed Sheeran"}&type=track`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    const spotifySong = songResponse.data.tracks.items[0];
+    console.log("Song found", spotifySong.name, "by", spotifySong.artists[0].name);
+    const songId = spotifySong.id;
+
+    // get song audio features
+    const audioFeaturesResponse = await axios.get(`https://api.spotify.com/v1/audio-features/${songId}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    const audioFeatures = audioFeaturesResponse.data;
+    console.log("Audio features", audioFeatures);
+
+    return res.json(audioFeatures);
 });
 
 router.get("/getSingleSong/:id", async (req, res) => {
