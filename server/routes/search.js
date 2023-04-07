@@ -8,7 +8,10 @@ router.get("/", async (req, res) => {
 
     const artists = await Artist.find({ name: { $regex: query, $options: "i" } });
     const albums = await Album.find({ name: { $regex: query, $options: "i" } });
-    const songs = await Song.find({ name: { $regex: query, $options: "i" } });
+    // const songs = await Song.find({ name: { $regex: query, $options: "i" } });
+    const songs = await Song.find({
+        $or: [{ name: { $regex: query, $options: "i" } }, { artist: { $regex: query, $options: "i" } }],
+    });
 
     res.json({ artists, albums, songs });
 });

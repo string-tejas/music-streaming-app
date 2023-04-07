@@ -11,10 +11,14 @@
 .rhap_container {
     background-color: transparent !important;
     box-shadow: none !important;
+    padding: 0;
+}
+.rhap_main-controls-button {
+    color: #333 !important;
 }
 
 .rhap_play-pause-button {
-    color: #ff0000 !important;
+    color: #3c7fdd !important;
     transition: all 0.3s ease-in-out;
 }
 
@@ -40,7 +44,7 @@
 }
 
 .rhap_progress-filled {
-    background-color: #ff0000 !important;
+    background-color: #4a72eb !important;
 }
 
 .rhap_progress-indicator,
@@ -55,12 +59,12 @@
 
 .rhap_download-progress,
 .rhap_volume-bar {
-    background-color: #ff000033 !important;
+    background-color: #24008633 !important;
 }
-.rhap_main {
+/* .rhap_main {
     width: 100%;
-}
-@media screen and (max-width: 670px) {
+} */
+/* @media screen and (max-width: 670px) {
     .rhap_main {
         width: 70vw;
     }
@@ -69,11 +73,8 @@
     .rhap_main {
         width: 200px;
     }
-}
+} */
 @media screen and (max-width: 450px) {
-    .rhap_main {
-        width: 200px;
-    }
     .rhap_controls-section button {
         height: 30px;
         width: 30px;
@@ -83,5 +84,22 @@
     .rhap_controls-section button svg {
         height: 22px;
         width: 22px;
+        color: white;
     }
+    .rhap_time {
+        font-size: 12px !important;
+    }
+}
+
+.rhap_play-pause-button {
+    color: rgb(48, 103, 223) !important;
+}
+
+.rhap_progress-indicator {
+    border: 2px solid rgb(95, 95, 95);
+}
+
+.rhap_button-clear.rhap_repeat-button,
+.rhap_button-clear.rhap_volume-button {
+    color: #055295 !important;
 }

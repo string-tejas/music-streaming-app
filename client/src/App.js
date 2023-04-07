@@ -17,6 +17,7 @@ import Explore from "./pages/Explore";
 import RequestArtist from "./pages/Dashboard/RequestArtist";
 import DashboardArtistRequest from "./pages/Dashboard/DashboardArtistRequest";
 import Artist from "./pages/Artist";
+import images from "./assets/images";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -53,7 +54,7 @@ function App() {
                     }
                 />
 
-<Route
+                <Route
                     path="/dashboard/artistRequest"
                     element={
                         <NeedAuth>
@@ -62,11 +63,11 @@ function App() {
                     }
                 />
 
-            <Route
+                <Route
                     path="/requestArtist"
                     element={
                         <NeedAuth>
-                            <RequestArtist/>
+                            <RequestArtist />
                         </NeedAuth>
                     }
                 />
@@ -112,7 +113,13 @@ function App() {
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 50 }}
-                    className={`fixed min-w-[700px] h-26  inset-x-0 bottom-0  bg-cardOverlay drop-shadow-2xl backdrop-blur-md flex items-center justify-center`}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                        background: `url(${images.wave1})`,
+                        backgroundSize: "cover",
+                        backgroundColor: "#ffffffaa",
+                    }}
+                    className={`fixed h-26  inset-x-0 bottom-0  bg-[#4157c566] drop-shadow-2xl backdrop-blur-md flex items-center justify-center`}
                 >
                     <MusicPlayer />
                 </motion.div>
