@@ -6,11 +6,12 @@ import { BiMenu } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { BsSpeedometer } from "react-icons/bs";
+import { BsPersonPlus, BsSpeedometer } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { useStateValue } from "../context/StateProvider";
 import { useAuth } from "../context/AuthContext";
 import SearchBox from "../components/SearchBox";
+import { BsMusicNoteList } from "react-icons/bs";
 
 const Landing = () => {
     return (
@@ -217,7 +218,7 @@ const UserCard = () => {
         <div
             onMouseEnter={() => setIsMenu(true)}
             onMouseLeave={() => setIsMenu(false)}
-            className="flex mr-2 items-center ml-auto z=[100] cursor-pointer backdrop-blur-sm gap-2 relative min-w-[100px] py-1 rounded-full border-2 hover:shadow-md hover:bg-white hover:border-gray-300"
+            className="flex mr-2 items-center ml-auto z-[100] cursor-pointer backdrop-blur-sm gap-2 relative min-w-[140px] py-1 rounded-full border-2 hover:shadow-md hover:bg-white hover:border-gray-300"
         >
             <img
                 src={user?.imageURL || images.avatar}
@@ -244,6 +245,20 @@ const UserCard = () => {
                                 <CgProfile className="text-xl md:text-2xl" /> Profile
                             </p>
                         </NavLink>
+                        {user?.role === "member" && (
+                            <NavLink to={"/requestArtist"}>
+                                <p className="text-base text-textColor  hover:bg-gray-200 pl-3 md:px-6 py-2 hover:font-semibold duration-150 transition-all ease-in-out flex items-center gap-4">
+                                    <BsPersonPlus className="text-xl md:text-2xl" /> Become an Artist
+                                </p>
+                            </NavLink>
+                        )}
+                        {user?.role === "artist" && (
+                            <NavLink to={"/mysongs"}>
+                                <p className="text-base text-textColor  hover:bg-gray-200 pl-3 md:px-6 py-2 hover:font-semibold duration-150 transition-all ease-in-out flex items-center gap-4">
+                                    <BsMusicNoteList className="text-xl md:text-2xl" /> Manage My Songs
+                                </p>
+                            </NavLink>
+                        )}
                         {user?.role === "admin" && (
                             <NavLink to={"/dashboard/home"}>
                                 <p className="text-base text-textColor  hover:bg-gray-200 pl-3 md:px-6 py-2 hover:font-semibold duration-150 transition-all ease-in-out flex items-center gap-4">

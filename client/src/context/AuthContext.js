@@ -8,58 +8,58 @@ import { useStateValue } from "./StateProvider";
 const authContext = createContext();
 
 const useAuth = () => {
-  return useContext(authContext);
+    return useContext(authContext);
 };
 
 const AuthProvider = ({ children }) => {
-  const firebaseAuth = getAuth(app);
+    const firebaseAuth = getAuth(app);
 
-  const [auth, setAuth] = useState(
-    false || window.localStorage.getItem("auth") === "true"
-  );
-  // eslint-disable-next-line no-unused-vars
-  const [_, dispatch] = useStateValue();
+    const [auth, setAuth] = useState(false || window.localStorage.getItem("auth") === "true");
+    // eslint-disable-next-line no-unused-vars
+    const [_, dispatch] = useStateValue();
 
-  useEffect(() => {
-    firebaseAuth.onAuthStateChanged((userCred) => {
-      if (userCred) {
-        userCred.getIdToken().then((token) => {
-          validateUser(token)
-            .then((data) => {
-              dispatch({
-                type: actionType.SET_USER,
-                user: data.user,
-              });
-            })
-            .catch((e) => console.log(e));
+    useEffect(() => {
+        setTimeout(() => {
+            firebaseAuth.onAuthStateChanged((userCred) => {
+                if (userCred) {
+                    userCred.getIdToken().then((token) => {
+                        validateUser(token)
+                            .then((data) => {
+                                dispatch({
+                                    type: actionType.SET_USER,
+                                    user: data.user,
+                                });
+                            })
+                            .catch((e) => console.log(e));
+                    });
+                    setAuth(true);
+                } else {
+                    dispatch({
+                        type: actionType.SET_USER,
+                        user: null,
+                    });
+                    setAuth(false);
+                }
+            }, 500);
         });
-        setAuth(true);
-      } else {
-        dispatch({
-          type: actionType.SET_USER,
-          user: null,
-        });
-        setAuth(false);
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  useEffect(() => {
-    window.localStorage.setItem("auth", auth ? "true" : "false");
-  }, [auth]);
+    useEffect(() => {
+        window.localStorage.setItem("auth", auth ? "true" : "false");
+    }, [auth]);
 
-  return (
-    <authContext.Provider
-      value={{
-        auth,
-        setAuth,
-        firebaseAuth,
-      }}
-    >
-      {children}
-    </authContext.Provider>
-  );
+    return (
+        <authContext.Provider
+            value={{
+                auth,
+                setAuth,
+                firebaseAuth,
+            }}
+        >
+            {children}
+        </authContext.Provider>
+    );
 };
 
 export { useAuth, AuthProvider };

@@ -8,6 +8,8 @@ import SongContainer from "../components/SongContainer";
 import MySongCard from "../components/MySongCard";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import ListContainer from "../components/ListContainer";
+import SongListItem from "../components/SongListItem";
 
 const Artist = () => {
     const params = useParams();
@@ -68,8 +70,8 @@ const Artist = () => {
                 </p>
             )}
             {!loading && artist && (
-                <div className=" flex min-h-[calc(100vh-72px)] flex-wrap md:flex-nowrap">
-                    <div className="bg-blue-50 shadow-md md:min-h-full w-full pb-4 md:pb-0 md:w-[300px] flex flex-col items-center ">
+                <div className=" flex min-h-[calc(100vh-72px)]  flex-wrap md:flex-nowrap">
+                    <div className="bg-blue-50 shadow-md md:min-h-full  w-full md:w-[300px] pb-4 md:pb-0 flex flex-col items-center ">
                         <ArtistCard
                             artist={artist}
                             textClass="text-2xl font-semibold"
@@ -77,21 +79,24 @@ const Artist = () => {
                             containerClass="mt-8 hover:scale-100 cursor-default"
                         />
                         <div className="w-3/4 text-center mt-6 text-gray-600">
-                            {artist.name} are an singer of Indian Origin. They are know for Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit.
+                            {artist.name} are an singer . They are know for Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit.
                         </div>
                     </div>
-                    <div className="w-full md:w-auto">
+                    <div className="w-full md:w-auto md:flex-1">
                         <SectionHeading style={{ marginLeft: "36px" }}>Songs By {artist?.name}</SectionHeading>
-                        <SongContainer>
+
+                        <ListContainer>
                             {songLoading && <p className="text-gray-400 text-center">Loading...</p>}
                             {songs?.length === 0 && !songLoading && (
                                 <p className="text-gray-400 text-center">No songs found</p>
                             )}
                             {songs?.map((song, index) => {
-                                return <MySongCard song={song} key={song._id} onClick={() => playSong(song, index)} />;
+                                return (
+                                    <SongListItem song={song} key={song._id} onClick={() => playSong(song, index)} />
+                                );
                             })}
-                        </SongContainer>
+                        </ListContainer>
                     </div>
                 </div>
             )}
