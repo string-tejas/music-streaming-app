@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react";
 import Dashboard from "./index";
-import { AddNewAlbum } from './DashboardNewSong'
+import { AddNewAlbum } from "./DashboardNewSong";
 
-const DashboardAddAlbum = () => {
-  return (
-      <>
-      <Dashboard/>
-      <AddNewAlbum/>
-      </>
-  )
-}
+const DashboardAddAlbum = ({ onlyForm = false }) => {
+    return (
+        <>
+            {!onlyForm && <Dashboard />}
+            <AddNewAlbum />
+        </>
+    );
+};
 
-export default DashboardAddAlbum
+export default DashboardAddAlbum;

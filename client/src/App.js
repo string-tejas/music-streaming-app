@@ -19,6 +19,7 @@ import DashboardArtistRequest from "./pages/Dashboard/DashboardArtistRequest";
 import Artist from "./pages/Artist";
 import images from "./assets/images";
 import Favorites from "./pages/Favorites";
+import Manage from "./pages/Manage";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -103,6 +104,8 @@ function App() {
                 />
 
                 <Route path="/artist/:name" element={<Artist />} />
+
+                <Route path="/manage/*" element={<Manage />} />
 
                 <Route
                     path="/*"

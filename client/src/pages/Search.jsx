@@ -5,9 +5,11 @@ import MySongCard from "../components/MySongCard";
 import ArtistCard from "../components/ArtistCard";
 import ArtistContainer from "../components/ArtistContainer";
 import { useNavigate } from "react-router-dom";
+import AlbumCard from "../components/AlbumCard";
 
 const Search = ({ songs = [], artists = [], albums = [], playSong = () => {}, searchLoading = true }) => {
     const navigate = useNavigate();
+    console.log("albums", albums);
 
     const onArtistClick = (artistName) => {
         navigate(`/artist/${artistName}`);
@@ -31,7 +33,7 @@ const Search = ({ songs = [], artists = [], albums = [], playSong = () => {}, se
                 })}
             </SongContainer>
             <SectionHeading>Artists</SectionHeading>
-            <ArtistContainer>
+            <ArtistContainer noBottomGap>
                 {searchLoading && <p className="text-gray-400 text-center">Loading...</p>}
                 {artists?.length === 0 && !searchLoading && (
                     <p className="text-gray-400 text-center">No artists found</p>
@@ -39,6 +41,14 @@ const Search = ({ songs = [], artists = [], albums = [], playSong = () => {}, se
                 {artists?.map((artist) => {
                     console.log(artist);
                     return <ArtistCard artist={artist} key={artist._id} onClick={() => onArtistClick(artist.name)} />;
+                })}
+            </ArtistContainer>
+            <SectionHeading>Albums</SectionHeading>
+            <ArtistContainer>
+                {searchLoading && <p className="text-gray-400 text-center">Loading...</p>}
+                {albums?.length === 0 && !searchLoading && <p className="text-gray-400 text-center">No albums found</p>}
+                {albums?.map((album) => {
+                    return <AlbumCard album={album} key={album._id} />;
                 })}
             </ArtistContainer>
         </div>

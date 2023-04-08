@@ -13,6 +13,7 @@ import { BiAlbum } from "react-icons/bi";
 import { FaMicrophoneAlt, FaMusic } from "react-icons/fa";
 import images from "../assets/images";
 import ExploreArtists from "./ExploreArtists";
+import ExploreAlbums from "./ExploreAlbums";
 
 const Explore = () => {
     const [{ allSongs, isSongPlaying, songIndex }, dispatch] = useStateValue();
@@ -80,7 +81,7 @@ const Explore = () => {
                         }
                     />
                     <Route path="/artists" element={<ExploreArtists />} />
-                    <Route path="/albums" element={<div>albums</div>} />
+                    <Route path="/albums" element={<ExploreAlbums />} />
                 </Routes>
             </div>
         </>

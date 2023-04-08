@@ -253,9 +253,9 @@ const UserCard = () => {
                             </NavLink>
                         )}
                         {user?.role === "artist" && (
-                            <NavLink to={"/mysongs"}>
+                            <NavLink to={"/manage"}>
                                 <p className="text-base text-textColor  hover:bg-gray-200 pl-3 md:px-6 py-2 hover:font-semibold duration-150 transition-all ease-in-out flex items-center gap-4">
-                                    <BsMusicNoteList className="text-xl md:text-2xl" /> Manage My Songs
+                                    <BsMusicNoteList className="text-xl md:text-2xl" /> Manage
                                 </p>
                             </NavLink>
                         )}

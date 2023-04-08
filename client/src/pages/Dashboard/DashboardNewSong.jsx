@@ -15,8 +15,9 @@ import FilterButtons from "./FilterButtons";
 
 import AlertError from "../../components/AlertError";
 import AlertSuccess from "../../components/AlertSuccess";
+import { useAuth } from "../../context/AuthContext";
 
-const DashboardNewSong = () => {
+const DashboardNewSong = ({ onlySongs = false, byArtist = false }) => {
     const [setAlert, setSetAlert] = useState(null);
     const [alertMsg, setAlertMsg] = useState("");
 
@@ -30,6 +31,8 @@ const DashboardNewSong = () => {
     const [isAudioLoading, setIsAudioLoading] = useState(false);
 
     const [songName, setSongName] = useState("");
+
+    const { firebaseAuth } = useAuth();
 
     const [{ artists, allAlbums, albumFilter, artistFilter, filterTerm, languageFilter }, dispath] = useStateValue();
 
@@ -53,6 +56,9 @@ const DashboardNewSong = () => {
                 language: languageFilter,
                 category: filterTerm,
             };
+            if (byArtist) {
+                data.artist = firebaseAuth.currentUser.name;
+            }
             console.log(data);
 
             saveNewSong(data).then((res) => {
@@ -116,9 +122,9 @@ const DashboardNewSong = () => {
 
     return (
         <div className="flex flex-col items-center justify-center px-4 pb-4 border border-gray-300 gap-4 rounded-md">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
-                <div className="flex flex-col items-center justify-center gap-4">
-                    <h3 className="self-start text-lg font-semibold text-textColor">Upload new song:</h3>
+            <div className={onlySongs ? "grid grid-cols-1 w-full" : "grid grid-cols-1 lg:grid-cols-2 gap-4 w-full"}>
+                <div className="flex flex-col items-center pt-4 justify-center gap-4">
+                    {!byArtist && <h3 className="self-start text-lg font-semibold text-textColor">Upload new song:</h3>}
                     <input
                         type="text"
                         placeholder="Enter the name of the song"
@@ -128,14 +134,14 @@ const DashboardNewSong = () => {
                     />
 
                     <div className="flex w-full justify-between flex-wrap items-center gap-4">
-                        <FilterButtons filterData={artists} flag={"Artist"} />
+                        {!byArtist && <FilterButtons filterData={artists} flag={"Artist"} />}
                         <FilterButtons filterData={allAlbums} flag={"Album"} />
                         <FilterButtons filterData={filterByLanguage} flag={"Language"} />
                         <FilterButtons filterData={filters} flag={"Category"} />
                     </div>
 
                     <div className="w-full flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between">
-                        <div className="flex items-center justify-start gap-2 w-full flex-wrap">
+                        <div className="flex items-center justify-center gap-2 w-full flex-wrap">
                             <div className="bg-card  backdrop-blur-md w-full lg:w-300 h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
                                 {isImageLoading && <FileLoader progress={imageUploadProgress} />}
                                 {!isImageLoading && (
@@ -171,7 +177,7 @@ const DashboardNewSong = () => {
                         </div>
 
                         {/*  for audio upload */}
-                        <div className="flex items-center justify-end gap-2 w-full flex-wrap">
+                        <div className="flex items-center justify-center gap-2 w-full flex-wrap">
                             <div className="bg-card  backdrop-blur-md w-full lg:w-300 h-300 rounded-md border-2 border-dotted border-gray-300 cursor-pointer">
                                 {isAudioLoading && <FileLoader progress={audioUploadingProgress} />}
                                 {!isAudioLoading && (
@@ -217,13 +223,16 @@ const DashboardNewSong = () => {
                         )}
                     </div>
                 </div>
-
-                <div className="flex flex-col items-center justify-center w-full p-4">
-                    <h3 className="self-start text-lg ml-8 font-semibold text-textColor">Create New Artist: </h3>
-                    <AddNewArtist />
-                    <h3 className="self-start text-lg ml-8 mt-4 font-semibold text-textColor">Create New Album: </h3>
-                    <AddNewAlbum />
-                </div>
+                {!onlySongs && (
+                    <div className="flex flex-col items-center justify-center w-full p-4">
+                        <h3 className="self-start text-lg ml-8 font-semibold text-textColor">Create New Artist: </h3>
+                        <AddNewArtist />
+                        <h3 className="self-start text-lg ml-8 mt-4 font-semibold text-textColor">
+                            Create New Album:{" "}
+                        </h3>
+                        <AddNewAlbum />
+                    </div>
+                )}
             </div>
 
             {setAlert && (
