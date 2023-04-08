@@ -241,4 +241,40 @@ router.get("/by-artist/:artist", async (req, res) => {
     }
 });
 
+// * for favorites
+router.get("/favorite/:songId", async (req, res) => {
+    const filters = { _id: req.params.songId };
+
+    const likedSong = await song.findOne(filters);
+
+    if (likedSong) {
+        // increase favorite by 1 if it exists
+        if (!likedSong.favorites) {
+            likedSong.favorites = 1;
+        } else {
+            likedSong.favorites += 1;
+        }
+        await likedSong.save();
+        return res.status(200).send({ success: true, song: likedSong });
+    } else {
+        return res.status(400).send({ success: false, message: "No Song found" });
+    }
+});
+
+// * remove from favorites
+router.get("/unfavorite/:songId", async (req, res) => {
+    const filters = { _id: req.params.songId };
+    const likedSong = await song.findOne(filters);
+    if (likedSong) {
+        // decrease favorite by 1 if it exists
+        if (likedSong.favorites) {
+            likedSong.favorites -= 1;
+        }
+        await likedSong.save();
+        return res.status(200).send({ success: true, song: likedSong });
+    } else {
+        return res.status(400).send({ success: false, message: "No Song found" });
+    }
+});
+
 module.exports = router;

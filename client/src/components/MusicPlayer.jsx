@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { FiMinimize2 } from "react-icons/fi";
-import { getAllSongs, updateSongCount } from "../api";
+import { favoriteSongWithId, getAllSongs, unfavoriteSongWithId, updateSongCount } from "../api";
 import { RiPlayListFill } from "react-icons/ri";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
@@ -115,7 +115,7 @@ const MusicPlayer = () => {
             .catch((err) => console.log(" error in count : ", err));
     };
 
-    const toggleFavorite = (song) => {
+    const toggleFavorite = async (song) => {
         const userId = firebaseAuth.currentUser.uid;
         const currentFavorites = JSON.parse(localStorage.getItem("favorites") || "{}");
 
@@ -123,10 +123,14 @@ const MusicPlayer = () => {
             if (currentFavorites[userId].find((s) => s._id === song._id)) {
                 currentFavorites[userId] = currentFavorites[userId].filter((item) => item._id !== song._id);
                 setIsFavorite(false);
+                const result = await unfavoriteSongWithId(song._id);
+                console.log(result);
                 localStorage.setItem("favorites", JSON.stringify(currentFavorites));
             } else {
                 currentFavorites[userId].push(song);
                 setIsFavorite(true);
+                await favoriteSongWithId(song._id);
+
                 localStorage.setItem("favorites", JSON.stringify(currentFavorites));
             }
         } else {
@@ -134,10 +138,11 @@ const MusicPlayer = () => {
             currentFavorites[userId].push(song);
             localStorage.setItem("favorites", JSON.stringify(currentFavorites));
             setIsFavorite(true);
+            await favoriteSongWithId(song._id);
         }
     };
     function checkIfFavorite(song) {
-        const userId = firebaseAuth.currentUser.uid;
+        const userId = firebaseAuth?.currentUser?.uid;
         const currentFavorites = JSON.parse(localStorage.getItem("favorites") || "{}");
         console.log(currentFavorites);
         if (userId in currentFavorites) {

@@ -29,6 +29,7 @@ const songsSchema = mongoose.Schema(
         analysis_url: String,
         duration_ms: Number,
         time_signature: Number,
+        favorites: Number,
     },
     { timestamps: true }
 );

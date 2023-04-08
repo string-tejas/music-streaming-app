@@ -10,7 +10,7 @@ import { useStateValue } from "./context/StateProvider";
 import { motion } from "framer-motion";
 import MusicPlayer from "./components/MusicPlayer";
 import Trending from "./pages/Trending";
-import { AddNewArtist } from "./pages/Dashboard/DashboardNewSong";
+// import { AddNewArtist } from "./pages/Dashboard/DashboardNewSong";
 import DashboardAddArtist from "./pages/Dashboard/DashboardAddArtist";
 import DashboardAddAlbum from "./pages/Dashboard/DashboardAddAlbum";
 import Explore from "./pages/Explore";

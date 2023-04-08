@@ -61,32 +61,31 @@ export const changeUserToArtist = async (userId, role) => {
 };
 
 export const requestArtist = async (data) => {
-  try {
-    const res = axios.post(`${baseURL}/requests/createRequest`, { ...data });
-    return res;
-  } catch (error) {
-    console.log("err in request artist : ",error);
-  }
+    try {
+        const res = axios.post(`${baseURL}/requests/createRequest`, { ...data });
+        return res;
+    } catch (error) {
+        console.log("err in request artist : ", error);
+    }
 };
 
 export const approveRequestProperty = async (requestId) => {
     try {
-      const res = axios.put(`${baseURL}/requests/approveRequest/${requestId}`);
-      return res;
+        const res = axios.put(`${baseURL}/requests/approveRequest/${requestId}`);
+        return res;
     } catch (error) {
-      console.log("err in request artist : ",error);
+        console.log("err in request artist : ", error);
     }
-  };
-
-export const getArtistRequests = async () => {
-  try {
-    const res = axios.get(`${baseURL}/requests/getRequests`);
-    return res;
-  } catch (error) {
-    console.log("err in request artist : ",error);
-  }
 };
 
+export const getArtistRequests = async () => {
+    try {
+        const res = axios.get(`${baseURL}/requests/getRequests`);
+        return res;
+    } catch (error) {
+        console.log("err in request artist : ", error);
+    }
+};
 
 export const updateSongCount = async (songId) => {
     try {
@@ -219,6 +218,25 @@ export const getArtistByName = async (name) => {
 export const getSongsByArtistName = async (name) => {
     try {
         const res = await axios.get(`${baseURL}/songs/by-artist/${name}`);
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};
+
+// favorite a song
+export const favoriteSongWithId = async (songId) => {
+    try {
+        const res = await api.get(`${baseURL}/songs/favorite/${songId}`);
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};
+
+export const unfavoriteSongWithId = async (songId) => {
+    try {
+        const res = await api.get(`${baseURL}/songs/unfavorite/${songId}`);
         return res.data;
     } catch (error) {
         return null;
