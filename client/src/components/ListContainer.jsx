@@ -1,7 +1,7 @@
 import React from "react";
 
-const ListContainer = ({ children }) => {
-    return <div className="px-6  pb-8">{children}</div>;
+const ListContainer = ({ children, className }) => {
+    return <div className={className + " px-6  pb-8"}>{children}</div>;
 };
 
 export default ListContainer;

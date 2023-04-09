@@ -35,6 +35,9 @@ app.use("/api/songs/", songsRoutes);
 const requestRoutes = require("./routes/requests");
 app.use("/api/requests", requestRoutes);
 
+const recommendRoutes = require("./routes/recommend");
+app.use("/api/recommend/", recommendRoutes);
+
 const searchRoutes = require("./routes/search");
 app.use("/api/search/", searchRoutes);
 

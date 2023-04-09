@@ -242,3 +242,12 @@ export const unfavoriteSongWithId = async (songId) => {
         return null;
     }
 };
+
+export const getRecommendedSongs = async (songName) => {
+    try {
+        const res = await axios.get(`${baseURL}/recommend/${songName}`);
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};
