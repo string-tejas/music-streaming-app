@@ -166,7 +166,7 @@ const CategoryWiseSongs = ({ playSong }) => {
     return (
         <>
             <AllExploreCardElements />
-            {catWiseSongs.length > 0 &&
+            {catWiseSongs?.length > 0 &&
                 catWiseSongs.map((cat, index) => {
                     return (
                         <React.Fragment key={cat._id}>

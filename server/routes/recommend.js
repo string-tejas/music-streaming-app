@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { spawn } = require("child_process");
+const { log } = require("console");
 
 router.get("/:name", async (req, res) => {
     const name = req.params.name;
@@ -11,8 +12,13 @@ router.get("/:name", async (req, res) => {
     });
 
     python.on("close", () => {
-        const recommend = JSON.parse(dataToSend);
-        res.json(recommend);
+        try {
+            const recommend = JSON.parse(dataToSend);
+            res.json(recommend);
+        } catch (e) {
+            console.log(e);
+            return res.json({ ok: false, msg: "some error occured while recommending" });
+        }
     });
 });
 
