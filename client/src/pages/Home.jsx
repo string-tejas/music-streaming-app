@@ -24,8 +24,12 @@ const Home = () => {
         setRLoading(true);
         getRecommendedSongs(historyy[0]?.name || "Shape Of You")
             .then((r) => {
-                console.log(r);
-                setRecommendedSongs(r);
+                if (r && "ok" in r) {
+                    console.log(r);
+                } else {
+                    console.log(r);
+                    setRecommendedSongs(r);
+                }
             })
             .finally(() => setRLoading(false));
     }, []);
