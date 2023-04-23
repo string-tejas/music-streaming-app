@@ -1,7 +1,8 @@
 import React from "react";
+import images from "../assets/images";
 
 const ArtistCard = ({
-    artist = { _id: "", name: "", imageURL: "" },
+    artist = { _id: "", name: "", imageURL: images.avatar },
     onClick,
     containerClass = "",
     textClass = "",

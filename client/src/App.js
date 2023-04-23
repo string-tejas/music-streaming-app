@@ -20,6 +20,7 @@ import Artist from "./pages/Artist";
 import images from "./assets/images";
 import Favorites from "./pages/Favorites";
 import Manage from "./pages/Manage";
+import Profile from "./pages/Profile";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -60,7 +61,7 @@ function App() {
                     path="/profile"
                     element={
                         <NeedAuth>
-                            <div>Hey</div>
+                            <Profile />
                         </NeedAuth>
                     }
                 />
