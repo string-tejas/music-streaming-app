@@ -251,3 +251,12 @@ export const getRecommendedSongs = async (songName) => {
         return null;
     }
 };
+
+export const getAlbumsByArtistName = async (name) => {
+    try {
+        const res = await axios.get(`${baseURL}/albums/getAlbumsByArtist/${name}`);
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};

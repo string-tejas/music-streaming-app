@@ -57,6 +57,15 @@ function App() {
                 />
 
                 <Route
+                    path="/profile"
+                    element={
+                        <NeedAuth>
+                            <div>Hey</div>
+                        </NeedAuth>
+                    }
+                />
+
+                <Route
                     path="/dashboard/artistRequest"
                     element={
                         <NeedAuth>

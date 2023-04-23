@@ -5,9 +5,11 @@ import { ImStatsDots } from "react-icons/im";
 import { BsMusicNoteBeamed } from "react-icons/bs";
 import { TbPlaylistAdd } from "react-icons/tb";
 import { MdOutlineAddToPhotos } from "react-icons/md";
+import { BsDisc } from "react-icons/bs";
 import ManageSongs from "./ManageSongs";
 import ManageAddSongs from "./ManageAddSongs";
 import ManageAlbums from "./ManageAlbums";
+import ManageViewAlbums from "./ManageViewAlbums";
 
 const Manage = () => {
     const navLinkStyle = ({ isActive }) =>
@@ -28,6 +30,10 @@ const Manage = () => {
                         <BsMusicNoteBeamed />
                         Songs
                     </NavLink>
+                    <NavLink className={navLinkStyle} to={"/manage/albums"}>
+                        <BsDisc />
+                        Albums
+                    </NavLink>
                     <NavLink className={navLinkStyle} to={"/manage/addSong"}>
                         <TbPlaylistAdd />
                         Add Song
@@ -43,6 +49,7 @@ const Manage = () => {
                         <Route path="/songs" element={<ManageSongs />} />
                         <Route path="/addSong" element={<ManageAddSongs />} />
                         <Route path="/addAlbum" element={<ManageAlbums />} />
+                        <Route path="/albums" element={<ManageViewAlbums />} />
                     </Routes>
                 </div>
             </div>

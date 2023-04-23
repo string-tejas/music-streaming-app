@@ -57,7 +57,7 @@ const DashboardNewSong = ({ onlySongs = false, byArtist = false }) => {
                 category: filterTerm,
             };
             if (byArtist) {
-                data.artist = firebaseAuth.currentUser.name;
+                data.artist = firebaseAuth.currentUser.name || firebaseAuth.currentUser.displayName;
             }
             console.log(data);
 
