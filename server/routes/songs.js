@@ -1,11 +1,13 @@
 const router = require("express").Router();
+const { log } = require("console");
 const song = require("../models/songs");
 const axios = require("axios");
 
 router.post("/save", async (req, res) => {
     try {
+        console.log("body", req.body);
         const audioFeatures = await getSongFeatures(req.body.name, req.body.artist);
-
+        console.log("audioFeatures", audioFeatures);
         audioFeatures.spotify_id = audioFeatures.id;
         delete audioFeatures.id;
 
@@ -25,6 +27,7 @@ router.post("/save", async (req, res) => {
 
         return res.status(200).send({ success: true, song: savedSong });
     } catch (error) {
+        console.log(error);
         return res.status(400).send({ success: false, message: error });
     }
 });

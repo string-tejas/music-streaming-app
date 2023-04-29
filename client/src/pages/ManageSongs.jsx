@@ -12,7 +12,7 @@ const ManageSongs = () => {
         const user = firebaseAuth.currentUser;
         setLoading(true);
 
-        getSongsByArtistName(user.name || user.displayName)
+        getSongsByArtistName(user?.name || user?.displayName)
             .then((res) => {
                 console.log(res);
                 setSongsByThisArtist(res.song);
