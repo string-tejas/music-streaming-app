@@ -236,7 +236,7 @@ router.get("/explore-category", async (req, res) => {
 });
 
 router.get("/by-artist/:artist", async (req, res) => {
-    const data = await song.find({ artist: req.params.artist });
+    const data = await song.find({ artist: req.params.artist,  }).sort({count : -1});
     if (data) {
         return res.status(200).send({ success: true, song: data });
     } else {

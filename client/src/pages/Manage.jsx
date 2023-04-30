@@ -10,6 +10,7 @@ import ManageSongs from "./ManageSongs";
 import ManageAddSongs from "./ManageAddSongs";
 import ManageAlbums from "./ManageAlbums";
 import ManageViewAlbums from "./ManageViewAlbums";
+import ManageStats from "./ManageStats";
 
 const Manage = () => {
     const navLinkStyle = ({ isActive }) =>
@@ -45,7 +46,7 @@ const Manage = () => {
                 </div>
                 <div className="flex-1 bg-blue-200">
                     <Routes>
-                        <Route path="/" element={<div>stats</div>} />
+                        <Route path="/" element={<ManageStats/>} />
                         <Route path="/songs" element={<ManageSongs />} />
                         <Route path="/addSong" element={<ManageAddSongs />} />
                         <Route path="/addAlbum" element={<ManageAlbums />} />

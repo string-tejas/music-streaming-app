@@ -29,7 +29,7 @@ app.use("/api/albums/", albumRoutes);
 
 // songs routes
 const songsRoutes = require("./routes/songs");
-app.use("/api/songs/", songsRoutes);
+app.use("/api/songs", songsRoutes);
 
 // request routes
 const requestRoutes = require("./routes/requests");
