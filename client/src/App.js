@@ -21,6 +21,7 @@ import images from "./assets/images";
 import Favorites from "./pages/Favorites";
 import Manage from "./pages/Manage";
 import Profile from "./pages/Profile";
+import Footer from "./components/Footer";
 
 function App() {
     const [{ isSongPlaying }] = useStateValue();
@@ -146,6 +147,7 @@ function App() {
                     <MusicPlayer />
                 </motion.div>
             )}
+            <Footer />
         </AnimatePresence>
     );
 }

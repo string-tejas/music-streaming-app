@@ -11,6 +11,7 @@ import dj from "./dj.jpg";
 import waveRed from "./wave-red.png";
 import waveGreen from "./wave-green.jpg";
 import artist from "./artist.jpg";
+import listenSong from "./listen-song.jpg";
 
 const obj = {
     authBg,
@@ -26,6 +27,7 @@ const obj = {
     waveRed,
     waveGreen,
     artist,
+    listenSong,
 };
 
 export default obj;
