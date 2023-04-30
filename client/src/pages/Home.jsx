@@ -9,6 +9,7 @@ import { actionType } from "../context/reducer";
 import { NavLink } from "react-router-dom";
 import ListContainer from "../components/ListContainer";
 import SongListItem from "../components/SongListItem";
+import images from "../assets/images";
 
 const Home = () => {
     const [history, setHistory] = useState();
@@ -65,21 +66,41 @@ const Home = () => {
     return (
         <>
             <Heading />
+            {history?.length === 0 ? (
+                <div className="text-center py-12 flex px-24 gap-12 flex-wrap md:flex-nowrap">
+                    <img
+                        src={images.listenSong}
+                        alt="listen song"
+                        className="md:w-[70%] md:h-[300px] w-[200px] h-[150px] object-cover rounded-lg"
+                    />
+                    <div className="flex items-center justify-center flex-col">
+                        <h3 className="text-center py-4 text-lg">Try listening Song to get recommendations</h3>
+                        <NavLink to="/trending" className="text-center">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Listen Songs
+                            </button>
+                        </NavLink>
+                    </div>
+                </div>
+            ) : (
+                <>
+                    <SectionHeading>Continue Listening</SectionHeading>
+                    <SongContainer noBottomGap>
+                        {history?.length > 0 &&
+                            history?.map((song, index) => {
+                                return (
+                                    <MySongCard
+                                        song={song}
+                                        key={song._id}
+                                        onClick={() => onSongClick(song, index)}
+                                        delay={index}
+                                    />
+                                );
+                            })}
+                    </SongContainer>
+                </>
+            )}
 
-            <SectionHeading>Continue Listening</SectionHeading>
-            <SongContainer noBottomGap>
-                {history?.length > 0 &&
-                    history?.map((song, index) => {
-                        return (
-                            <MySongCard
-                                song={song}
-                                key={song._id}
-                                onClick={() => onSongClick(song, index)}
-                                delay={index}
-                            />
-                        );
-                    })}
-            </SongContainer>
             <SectionHeading>Recommended For you</SectionHeading>
             {rLoading && <h3 className="text-center">Loading...</h3>}
             {!rLoading && recommendedSongs?.length === 0 && (
