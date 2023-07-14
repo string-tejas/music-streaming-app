@@ -6,6 +6,7 @@ const baseURL =
 
 const api = axios.create({
     baseURL: baseURL,
+    withCredentials: true,
 });
 
 export const validateUser = async (token) => {
