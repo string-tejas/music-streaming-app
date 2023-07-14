@@ -6,9 +6,20 @@ const cors = require("cors");
 require("dotenv").config();
 
 // app.use(cors({ origin: true }));
+const whitelist = [
+    "https://music-streaming-app-tau.vercel.app",
+    "https://music-streaming-7vf9gwzq3-string-tejas.vercel.app",
+];
 app.use(
     cors({
-        origin: "https://music-streaming-app-tau.vercel.app",
+        origin: (origin, callback) => {
+            if (whitelist.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+
         credentials: true,
     })
 );
