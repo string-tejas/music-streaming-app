@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:4000/api";
+// const baseURL = "http://localhost:4000/api";
+const baseURL =
+    "https://music-streaming-app-production-9805.up.railway.app/api";
 
 const api = axios.create({
     baseURL: baseURL,
@@ -62,7 +64,9 @@ export const changeUserToArtist = async (userId, role) => {
 
 export const requestArtist = async (data) => {
     try {
-        const res = axios.post(`${baseURL}/requests/createRequest`, { ...data });
+        const res = axios.post(`${baseURL}/requests/createRequest`, {
+            ...data,
+        });
         return res;
     } catch (error) {
         console.log("err in request artist : ", error);
@@ -71,7 +75,9 @@ export const requestArtist = async (data) => {
 
 export const approveRequestProperty = async (requestId) => {
     try {
-        const res = axios.put(`${baseURL}/requests/approveRequest/${requestId}`);
+        const res = axios.put(
+            `${baseURL}/requests/approveRequest/${requestId}`
+        );
         return res;
     } catch (error) {
         console.log("err in request artist : ", error);
@@ -154,7 +160,7 @@ export const saveNewAlbum = async (data) => {
 
 export const saveNewSong = async (data) => {
     try {
-        const res = api.post(`${baseURL}/songs/save`,  JSON.stringify(data));
+        const res = api.post(`${baseURL}/songs/save`, JSON.stringify(data));
         return (await res).data.song;
     } catch (error) {
         return null;
@@ -207,7 +213,9 @@ export const exploreSongs = async () => {
 // write full function getArtistByName
 export const getArtistByName = async (name) => {
     try {
-        const res = await axios.get(`${baseURL}/artists/getArtistByName/${name}`);
+        const res = await axios.get(
+            `${baseURL}/artists/getArtistByName/${name}`
+        );
         return res.data;
     } catch (error) {
         return null;
@@ -254,7 +262,9 @@ export const getRecommendedSongs = async (songName) => {
 
 export const getAlbumsByArtistName = async (name) => {
     try {
-        const res = await axios.get(`${baseURL}/albums/getAlbumsByArtist/${name}`);
+        const res = await axios.get(
+            `${baseURL}/albums/getAlbumsByArtist/${name}`
+        );
         return res.data;
     } catch (error) {
         return null;

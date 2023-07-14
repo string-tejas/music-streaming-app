@@ -74,7 +74,9 @@ const Home = () => {
                         className="md:w-[70%] md:h-[300px] w-[200px] h-[150px] object-cover rounded-lg"
                     />
                     <div className="flex items-center justify-center flex-col">
-                        <h3 className="text-center py-4 text-lg">Try listening Song to get recommendations</h3>
+                        <h3 className="text-center py-4 text-lg">
+                            Try listening Song to get recommendations
+                        </h3>
                         <NavLink to="/trending" className="text-center">
                             <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 Listen Songs
@@ -104,16 +106,20 @@ const Home = () => {
             <SectionHeading>Recommended For you</SectionHeading>
             {rLoading && <h3 className="text-center">Loading...</h3>}
             {!rLoading && recommendedSongs?.length === 0 && (
-                <h3 className="text-center">Try listening Song to get recommendations</h3>
+                <h3 className="text-center">
+                    Try listening Song to get recommendations
+                </h3>
             )}
-            {!rLoading && recommendedSongs.length > 0 && (
+            {!rLoading && recommendedSongs?.length > 0 && (
                 <ListContainer className={"m-auto md:px-16"}>
                     {recommendedSongs?.map((song, index) => {
                         return (
                             <SongListItem
                                 song={song}
                                 key={song._id}
-                                onClick={() => playSong(index, recommendedSongs)}
+                                onClick={() =>
+                                    playSong(index, recommendedSongs)
+                                }
                                 delay={index}
                             />
                         );
