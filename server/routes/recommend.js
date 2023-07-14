@@ -17,7 +17,10 @@ router.get("/:name", async (req, res) => {
             res.json(recommend);
         } catch (e) {
             console.log(e);
-            return res.json({ ok: false, msg: "some error occured while recommending" });
+            return res.json({
+                ok: false,
+                msg: "some error occured while recommending",
+            });
         }
     });
 });
