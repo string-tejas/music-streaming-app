@@ -10,19 +10,35 @@ const whitelist = [
     "https://music-streaming-app-tau.vercel.app",
     "https://music-streaming-7vf9gwzq3-string-tejas.vercel.app",
 ];
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            if (whitelist.indexOf(origin) !== -1) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
+// app.use(
+//     cors({
+//         origin: (origin, callback) => {
+//             if (whitelist.indexOf(origin) !== -1) {
+//                 callback(null, true);
+//             } else {
+//                 callback(new Error("Not allowed by CORS"));
+//             }
+//         },
 
-        credentials: true,
-    })
-);
+//         credentials: true,
+//     })
+// );
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested, Content-Type, Accept Authorization"
+    )
+    if (req.method === "OPTIONS") {
+      res.header(
+        "Access-Control-Allow-Methods",
+        "POST, PUT, PATCH, GET, DELETE"
+      )
+      return res.status(200).json({})
+    }
+    next()
+  })
+  
 app.use(express.json());
 
 mongoose
