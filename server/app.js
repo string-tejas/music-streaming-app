@@ -9,6 +9,7 @@ require("dotenv").config();
 const whitelist = [
     "https://music-streaming-app-tau.vercel.app",
     "https://music-streaming-7vf9gwzq3-string-tejas.vercel.app",
+    "http://localhost:3000",
 ];
 app.use(
     cors({

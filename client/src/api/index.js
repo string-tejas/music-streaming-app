@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// const baseURL = "http://localhost:4000/api";
-const baseURL =
-    "https://music-streaming-app-production-9805.up.railway.app/api";
+const baseURL = "http://localhost:4000/api";
+// const baseURL =
+// "https://music-streaming-app-production-9805.up.railway.app/api";
 
 const api = axios.create({
     baseURL: baseURL,
